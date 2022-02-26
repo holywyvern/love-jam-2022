@@ -5,12 +5,17 @@ Slog   = require "lib.slog"
 -- Player is created when the application loads
 Player = nil
 
+local STARTING_MAP = "test-map"
+local STARTING_POSITION = { 1, 1 }
+
 -- Game dependencies
 require "core"
-require "managers"
-
 -- Game Objects
+require "managers"
+require "game"
 require "scenes"
+-- Drawable objects
+require "spritesets"
 
 local function loadAssets()
   Assets = require("lib.cargo").init("assets")
@@ -40,6 +45,15 @@ local function setupManagers()
   Message_Manager:setup()
 end
 
+local function setupGame()
+  Game_Interpreter:setup()
+  Game_Switches:setup()
+  Game_Variables:setup()
+  Game_Camera:setup()
+  Game_Map:setup(STARTING_MAP)
+  Game_Player:setup(STARTING_POSITION[1], STARTING_POSITION[2])
+end
+
 local function setupScene()
   Scene_Manager:hook()
   Scene_Manager:enter(Scene_Test())
@@ -49,5 +63,6 @@ function love.load()
   loadAssets()
   loadPlayer()
   setupManagers()
+  setupGame()
   setupScene()
 end
