@@ -10,10 +10,6 @@ function Scene_Map.prototype:update(dt)
   Spriteset_Map:update(dt)
 end
 
-function Scene_Map.prototype:draw()
-  love.graphics.clear()
-  Game_Camera:push()
-    Spriteset_Map:draw()
-    Message_Manager:draw()
-  Game_Camera:pop()
+function Scene_Map.prototype:drawObjects()
+  Spriteset_Map:draw()
 end
