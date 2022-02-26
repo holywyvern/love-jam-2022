@@ -1,9 +1,21 @@
-Assets = require("lib.cargo")
+Assets = nil
 Baton = require("lib.baton")
+Roomy = require("lib.roomy")
 -- Player is created when the application loads
 Player = nil
 
-function love.load()
+-- Game dependencies
+require("core")
+require("managers")
+
+-- Game Objects
+require("scenes")
+
+local function loadAssets()
+  Assets = require("lib.cargo").init("assets")
+end
+
+local function loadPlayer()
   Player = Baton.new {
     controls = {
       left = {'key:left', 'axis:leftx-', 'button:dpleft'},
@@ -20,16 +32,13 @@ function love.load()
   }
 end
 
-function love.update(dt)
-  Player:update()
+local function setupScene()
+  Scene_Manager:hook()
+  -- TODO: Setup first scene
 end
 
-function love.draw()
-end
-
-function love.joystickadded(joystick)
-  local index = joystick:getConnectedIndex()
-  if index == 1 then
-    Player.config.joystick = joystick
-  end
+function love.load()
+  loadAssets()
+  loadPlayer()
+  setupScene()
 end
