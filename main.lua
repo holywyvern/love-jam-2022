@@ -1,18 +1,22 @@
 Assets = nil
-Baton = require("lib.baton")
-Roomy = require("lib.roomy")
+Baton  = require "lib.baton"
+Roomy  = require "lib.roomy"
+Slog   = require "lib.slog"
 -- Player is created when the application loads
 Player = nil
 
 -- Game dependencies
-require("core")
-require("managers")
+require "core"
+require "managers"
 
 -- Game Objects
-require("scenes")
+require "scenes"
 
 local function loadAssets()
   Assets = require("lib.cargo").init("assets")
+  images = { frame = {} }
+  images.frame.default_8 = Assets.graphics.system.frame
+  Slog.frame.load()
 end
 
 local function loadPlayer()
@@ -32,13 +36,18 @@ local function loadPlayer()
   }
 end
 
+local function setupManagers()
+  Message_Manager:setup()
+end
+
 local function setupScene()
   Scene_Manager:hook()
-  -- TODO: Setup first scene
+  Scene_Manager:enter(Scene_Test())
 end
 
 function love.load()
   loadAssets()
   loadPlayer()
+  setupManagers()
   setupScene()
 end
