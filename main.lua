@@ -1,7 +1,9 @@
-Assets = nil
-Baton  = require "lib.baton"
-Roomy  = require "lib.roomy"
-Slog   = require "lib.slog"
+Assets   = nil
+Baton    = require "lib.baton"
+Roomy    = require "lib.roomy"
+Slog     = require "lib.slog"
+StalkerX = require "lib.stalker-x"
+Brady    = require "lib.brady"
 -- Player is created when the application loads
 Player = nil
 
@@ -10,6 +12,7 @@ local STARTING_POSITION = { 1, 1 }
 
 -- Game dependencies
 require "core"
+require "utils"
 -- Game Objects
 require "managers"
 require "game"
@@ -60,6 +63,7 @@ local function setupScene()
 end
 
 function love.load()
+  love.graphics.setDefaultFilter('nearest', 'nearest')
   loadAssets()
   loadPlayer()
   setupManagers()

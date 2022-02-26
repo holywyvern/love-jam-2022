@@ -5,8 +5,7 @@ function Scene_Test.prototype:update(dt)
   Message_Manager:update(dt)
 end
 
-function Scene_Test.prototype:draw()
-  love.graphics.clear()
+function Scene_Test.prototype:drawObjects()
   Message_Manager:draw()
 end
 

@@ -36,7 +36,8 @@ end
 
 function Message_Manager:draw()
   if self._visible then
-    local width, height = love.graphics.getDimensions()
+    local width = Game_Camera.width
+    local height = Game_Camera.height
     local x, y = (width - 320) / 2, height - 88
     Slog.frame.draw("default", x, y, 320, 80)
     self._text:draw(x + 8, y + 8)

@@ -1,13 +1,55 @@
 Game_Character = Object:extend("Game_Character")
 
+function Game_Character.prototype:constructor()
+  self._characterName = nil
+  self._direction = 2
+  self._anim = 0
+  self._animTime = 0
+  self._animDelay = 0.3
+  self._speed = 2
+  self._standAnim = false
+  self._walkAnim = true
+  self._position = Point()
+  self._realPosition = Point()
+  self._targetPosition = Point()
+end
+
+
 function Game_Character.prototype:update(dt)
+  self:updateMovement(dt)
+  self:updateAnimation(dt)
+end
+
+function Game_Character.prototype:updateMovement(dt)
+end
+
+function Game_Character.prototype:updateAnimation(dt)
+  if not self:isAnimating() then
+    return
+  end
 end
 
 function Game_Character.prototype:moveTo(x, y)
+  self._position:set(x, y)
+  self._realPosition:set(x * 16, y * 16)
+  self._targetPosition:copy(self._realPosition)
+end
+
+function Game_Character.prototype:isAnimating()
+  local isMoving = self:isMoving()
+  if self._walkAnim and isMoving then
+    return true
+  end
+  if self._standAnim and not isMoving then
+    return true
+  end
+  return false
 end
 
 function Game_Character.prototype:isMoving()
-  return false
+  local movingX = self._realPosition.x ~= self._targetPosition.x
+  local movingY = self._realPosition.y ~= self._targetPosition.y
+  return movingX or movingY
 end
 
 function Game_Character.prototype:face(direction)
@@ -25,5 +67,5 @@ function Game_Character.prototype:face(direction)
 end
 
 function Game_Character.prototype:direction()
-  return 2
+  return self._direction
 end
