@@ -1,6 +1,6 @@
 Scene_Map = Scene_Base:extend("Scene_Map")
 
-function Scene_Map.prototype:enter(prev, mapId)
+function Scene_Map.prototype:enter(prev, result)
   self._spriteset = Spriteset_Map()
 end
 

@@ -3,7 +3,7 @@ Scene_Splash = Scene_Base:extend("Scene_Splash")
 function Scene_Splash.prototype:enter()
   self._splash = require("lib.splashes.o-ten-one")()
   self._splash.onDone = function ()
-    Scene_Manager:enter(Scene_Map())
+    Scene_Manager:enter(Scene_Lock())
   end
 end
 

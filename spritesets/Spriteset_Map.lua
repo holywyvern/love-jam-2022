@@ -87,10 +87,10 @@ end
 function Spriteset_Map.prototype:updateLights(dt)
   love.graphics.setCanvas({ self._lightCanvas, stencil = true})
     local data = Game_Map:data()
-    local r = data.properties['ambient.red'] or 0
-    local g = data.properties['ambient.green'] or 0
-    local b = data.properties['ambient.blue'] or 0
-    local a = data.properties['ambient.alpha'] or 1
+    local r = data.properties['ambient.red'] or 0.3
+    local g = data.properties['ambient.green'] or 0.3
+    local b = data.properties['ambient.blue'] or 0.3
+    local a = data.properties['ambient.alpha'] or .5
     love.graphics.clear(r, g, b, a) -- Global illumination level
     self._lighter:drawLights()
     love.graphics.setBlendMode("add")

@@ -21,9 +21,13 @@ function Scene_Base.prototype:draw()
     Game_Camera:push()
       self:drawObjects()
     Game_Camera:pop()  
+    self:drawUI()
     Message_Manager:draw()
   love.graphics.setCanvas()
   self:drawCanvas()
+end
+
+function Scene_Base.prototype:drawUI()
 end
 
 function Scene_Base.prototype:drawObjects()
