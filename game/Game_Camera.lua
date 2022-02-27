@@ -13,6 +13,10 @@ function Game_Camera:update(dt)
   if self.follower then
     self._cam:follow(self.follower.x, self.follower.y)
   end
+  if self.limits then
+    self._cam.x = math.max(self.limits.x, math.min(self.limits.x + self.limits.width, self._cam.x))
+    self._cam.y = math.max(self.limits.y, math.min(self.limits.y + self.limits.height, self._cam.y))
+  end
   self._brady:update()
 end
 

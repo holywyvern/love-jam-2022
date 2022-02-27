@@ -9,11 +9,12 @@ function Game_Character.prototype:constructor()
   self._animTime = 0.3
   self._animDelay = 0.3
   self._speed = 2
-  self._standAnim = true
+  self._standAnim = false
   self._walkAnim = true
   self._position = Point()
   self._realPosition = Point()
   self._targetPosition = Point()
+  self._fixDirection = false
 end
 
 
@@ -23,6 +24,26 @@ function Game_Character.prototype:update(dt)
 end
 
 function Game_Character.prototype:updateMovement(dt)
+  local minx = math.min(self._realPosition.x, self._targetPosition.x)
+  local miny = math.min(self._realPosition.y, self._targetPosition.y)
+  local maxx = math.max(self._realPosition.x, self._targetPosition.x)
+  local maxy = math.max(self._realPosition.y, self._targetPosition.y)
+  local tx, ty = 0, 0
+  if self._realPosition.x > self._targetPosition.x then
+    tx = -1
+  elseif self._realPosition.x < self._targetPosition.x then
+    tx = 1
+  end
+  if self._realPosition.y > self._targetPosition.y then
+    ty = -1
+  elseif self._realPosition.y < self._targetPosition.y then
+    ty = 1
+  end
+  local dx = 16 * dt * self._speed * tx
+  local dy = 16 * dt * self._speed * ty
+  local x = math.min(maxx, math.max(minx, self._realPosition.x + dx))
+  local y = math.min(maxy, math.max(miny, self._realPosition.y + dy))
+  self._realPosition:set(x, y)
 end
 
 function Game_Character.prototype:updateAnimation(dt)
@@ -45,6 +66,27 @@ function Game_Character.prototype:moveTo(x, y)
   self._targetPosition:copy(self._realPosition)
 end
 
+function Game_Character.prototype:move(direction)
+  if not self._fixDirection then
+    self:face(direction)
+  end
+  local dir = self:_directionOf(direction)
+  local x, y = self._position:get()
+  if dir == 2 then
+    y = y + 1
+  elseif dir == 4 then
+    x = x - 1
+  elseif dir == 6 then
+    x = x + 1
+  elseif dir == 8 then
+    y = y - 1
+  end
+  if Game_Map:isPassable(x, y) then
+    self._position:set(x, y)
+    self._targetPosition:set(x * 16, y * 16)
+  end
+end
+
 function Game_Character.prototype:isAnimating()
   local isMoving = self:isMoving()
   if self._walkAnim and isMoving then
@@ -63,17 +105,22 @@ function Game_Character.prototype:isMoving()
 end
 
 function Game_Character.prototype:face(direction)
+  self._direction = self:_directionOf(direction)
+end
+
+function Game_Character.prototype:_directionOf(direction)
   if type(direction) == "number" then
-    self._direction = direction
+    return direction
   elseif direction == "up" or direction == "u" then
-    self._direction = 8
+    return 8
   elseif direction == "down" or direction == "d" then
-    self._direction = 2
+    return 2
   elseif direction == "left" or direction == "l" then
-    self._direction = 4
+    return 4
   elseif direction == "right" or direction == "r" then
-    self._direction = 6
+    return 6
   end
+  return 2
 end
 
 function Game_Character.prototype:direction()
