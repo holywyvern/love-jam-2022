@@ -15,6 +15,7 @@ function Game_Character.prototype:constructor()
   self._realPosition = Point()
   self._targetPosition = Point()
   self._fixDirection = false
+  self.walkable = false
 end
 
 

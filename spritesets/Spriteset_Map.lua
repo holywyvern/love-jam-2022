@@ -10,6 +10,11 @@ function Map_Event_Layer.prototype:update(dt)
   for event in self.events:iterator() do
     event:update(dt)
   end
+  self.events:sort(
+    function (a, b)
+      return a.position.y > b.position.y
+    end
+  )
 end
 
 function Map_Event_Layer.prototype:draw()
@@ -39,12 +44,7 @@ function Spriteset_Map.prototype:createEvents(layer)
   local newLayer = Map_Event_Layer()
   for _, object in ipairs(layer.objects) do
     local type = object.type
-    if type == "spawn" then
-      local x = math.ceil(object.x / 16)
-      local y = math.ceil(object.y / 16)
-      local d = object.properties.direction or "down"
-      -- TODO: Spawn Event
-    elseif type == "light" then
+    if type == "light" then
       local props = object.properties
       local x = object.x or 0
       local y = object.y or 0
@@ -53,11 +53,23 @@ function Spriteset_Map.prototype:createEvents(layer)
       local g = props.green or 0.8
       local b = props.blue or 0.8
       local a = props.alpha or 0.6
-      print(x, y, rad, r, g, b, a)
       self._lighter:addLight(x, y, rad, r, g, b, a)
     end
   end
-  newLayer.events:push(Sprite_Character(Game_Player))
+  newLayer.events:push(Sprite_Character(Game_Player, self._lighter))
+  for event in Game_Map.events:iterator() do
+    local sprite = Sprite_Character(event, self._lighter)
+    newLayer.events:push(sprite)
+    if event.light then
+      local light = event.light
+      local x, y = event._realPosition:get()
+      local ox, oy = light.offset:get()
+      sprite.light = self._lighter:addLight(
+        x + ox, y + oy,
+        light.radius, light.red, light.green, light.blue, light.alpha
+      )
+    end
+  end
   self._layers:push(newLayer)
 end
 

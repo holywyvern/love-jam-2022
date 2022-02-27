@@ -149,4 +149,8 @@ function Array.prototype:lastIndexOf(value)
   return nil
 end
 
+function Array.prototype:sort(sorting)
+  table.sort(self._data, sorting)
+end
+
 Array.prototype.class = Array
