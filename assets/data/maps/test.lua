@@ -40,43 +40,43 @@ return {
         {
           id = 144,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 145,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 146,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 147,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 148,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 149,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 150,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
@@ -88,43 +88,43 @@ return {
         {
           id = 152,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 153,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = false
           }
         },
         {
           id = 154,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 155,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 156,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 157,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 158,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
@@ -136,43 +136,43 @@ return {
         {
           id = 160,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 161,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 162,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 163,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 164,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 165,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 166,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
@@ -184,85 +184,85 @@ return {
         {
           id = 168,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 169,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 170,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 171,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 172,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 173,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 174,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 175,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 176,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 177,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 178,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 179,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 180,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 181,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
@@ -280,145 +280,145 @@ return {
         {
           id = 184,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 185,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 186,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 187,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 188,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 189,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 190,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 191,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 192,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 193,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 194,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 195,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 196,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 197,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 198,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 199,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 200,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 201,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 202,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 203,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 204,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 205,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 206,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
           id = 207,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         },
         {
@@ -430,7 +430,7 @@ return {
         {
           id = 212,
           properties = {
-            ["obstacle"] = true
+            ["solid"] = true
           }
         }
       }
