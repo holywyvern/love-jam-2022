@@ -59,7 +59,7 @@ end
 
 local function setupScene()
   Scene_Manager:hook()
-  Scene_Manager:enter(Scene_Test())
+  Scene_Manager:enter(Scene_Splash())
 end
 
 function love.load()
