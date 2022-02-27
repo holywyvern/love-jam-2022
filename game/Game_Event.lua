@@ -1,6 +1,7 @@
 Game_Event = Game_Character:extend("Game_Event")
 
 function Game_Event.prototype:update(dt)
+  Game_Character.prototype.update(self, dt)
 end
 
 function Game_Event.prototype:run()

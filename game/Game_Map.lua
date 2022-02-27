@@ -78,12 +78,15 @@ function Game_Map:update(dt)
   Game_Player:update(dt)
 end
 
-function Game_Map:isPassable(x, y)
+function Game_Map:isPassable(event, x, y)
   if x < 0 or y < 0 then
     return false
   end
   if x >= self._data.width or y >= self._data.height then
     return false
+  end
+  if event.walkable then
+    return true
   end
   for _, layer in ipairs(self._data.layers) do
     if layer.type == "tilelayer" then
@@ -112,4 +115,21 @@ function Game_Map:eventsAt(x, y)
     result:push(Game_Player)
   end
   return result
+end
+
+function Game_Map:findPathFor(event, goal)
+  local function canWalk(x, y)
+    if event._position.x == x and event._position.y == y then
+      return true
+    end
+    if goal.x == x or goal.y == y then
+      return true
+    end
+    return Game_Map:isPassable(event, x, y)
+  end
+  return LuaStar:find(
+    self._data.width, self._data.height,
+    event._position, goal,
+    canWalk, false, true
+  )
 end

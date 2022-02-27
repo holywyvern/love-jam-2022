@@ -22,6 +22,7 @@ end
 function Game_Character.prototype:update(dt)
   self:updateMovement(dt)
   self:updateAnimation(dt)
+  self:updateFollower(dt)
 end
 
 function Game_Character.prototype:updateMovement(dt)
@@ -62,6 +63,30 @@ function Game_Character.prototype:updateAnimation(dt)
   end
 end
 
+function Game_Character.prototype:updateFollower()
+  if not self.follower then
+    return
+  end
+  if self:isMoving() then
+    return
+  end
+  if self._followerStep then
+    local pos = self._followerStep
+    self:faceAt(pos.x, pos.y)
+    local d = math.abs(pos.x - self._position.x) + math.abs(pos.y - self._position.y)
+    if d == 1 and Game_Map:isPassable(self, pos.x, pos.y) then
+      self._targetPosition:set(pos.x * 16, pos.y * 16)
+      self._position:set(pos.x, pos.y)
+    end
+    self._followerStep = nil
+    return
+  end
+  local path = Game_Map:findPathFor(self, self.follower._position)
+  if path then
+    self._followerStep = path[2]
+  end 
+end
+
 function Game_Character.prototype:moveTo(x, y)
   self._position:set(x, y)
   self._realPosition:set(x * 16, y * 16)
@@ -83,11 +108,13 @@ function Game_Character.prototype:move(direction)
   elseif dir == 8 then
     y = y - 1
   end
-  if Game_Map:isPassable(x, y) then
+  if Game_Map:isPassable(self, x, y) then
     self._position:set(x, y)
     self._targetPosition:set(x * 16, y * 16)
   end
 end
+
+
 
 function Game_Character.prototype:isAnimating()
   local isMoving = self:isMoving()
@@ -131,4 +158,16 @@ end
 
 function Game_Character.prototype:frame()
   return FRAMES[self._anim]
+end
+
+function Game_Character.prototype:faceAt(x, y)
+  if x > self._position.x then
+    self:face("right")
+  elseif x < self._position.x then
+    self:face("left")
+  elseif y > self._position.y then
+    self:face("down")
+  elseif y < self._position.y then
+    self:face("up")
+  end
 end
