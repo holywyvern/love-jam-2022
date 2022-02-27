@@ -1,6 +1,7 @@
 function love.conf(t)
   local TILE_SIZE = 16
-  local SCALE = 2
+  local SCALE = 4
+  t.identity = 'love_jav_2022'
   -- For debugging, build must have it as false
   t.console = true
   t.title = "Löve Jam 2022"
