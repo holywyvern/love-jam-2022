@@ -2033,7 +2033,7 @@ return {
         {
           id = 6,
           name = "Event 1",
-          type = "spawn",
+          type = "event",
           shape = "point",
           x = 135.755,
           y = 119.464,
@@ -2041,7 +2041,10 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["light"] = true,
+            ["sprite"] = "player"
+          }
         },
         {
           id = 8,

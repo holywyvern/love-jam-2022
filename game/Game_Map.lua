@@ -4,7 +4,8 @@ function Game_Map:setup(mapName)
   self._data = Cartographer.load("assets/data/maps/" .. mapName .. ".lua")
   local w, h = Game_Camera.width / 2, Game_Camera.height / 2
   Game_Camera.limits = Rect(w, h, self._data.width * 16, self._data.height * 16)
-  Game_Map:_setupPolygons()
+  self:_setupPolygons()
+  self:_setupEvents()
 end
 
 function Game_Map:_setupPolygons()
@@ -24,6 +25,28 @@ function Game_Map:_setupPolygons()
           end
         end
       end
+    end
+  end
+end
+
+function Game_Map:_setupEvents()
+  self.events = Array()
+  for _, layer in ipairs(self._data.layers) do
+    if layer.name == 'events' then
+      self:_createEvents(layer)
+    end
+  end
+end
+
+function Game_Map:_createEvents(layer)
+  local newLayer = Map_Event_Layer()
+  for _, object in ipairs(layer.objects) do
+    local type = object.type
+    if type == "event" then
+      local x = math.floor(object.x / 16)
+      local y = math.floor(object.y / 16)
+      local event = Game_Event:from(x, y, object.properties)
+      self.events:push(event)
     end
   end
 end
@@ -70,5 +93,23 @@ function Game_Map:isPassable(x, y)
       end
     end
   end
+  for event in self:eventsAt(x, y):iterator() do
+    if not event.walkable then
+      return false
+    end
+  end
   return true
+end
+
+function Game_Map:eventsAt(x, y)
+  local result = Array()
+  for event in self.events:iterator() do
+    if event._position.x == x and event._position.y == y then
+      result:push(event)
+    end
+  end
+  if Game_Player._position.x == x and Game_Player._position.y == y then
+    result:push(Game_Player)
+  end
+  return result
 end

@@ -533,7 +533,11 @@
 </data>
  </layer>
  <objectgroup id="2" name="events">
-  <object id="6" name="Event 1" type="spawn" x="135.755" y="119.464">
+  <object id="6" name="Event 1" type="event" x="135.755" y="119.464">
+   <properties>
+    <property name="light" type="bool" value="true"/>
+    <property name="sprite" value="player"/>
+   </properties>
    <point/>
   </object>
   <object id="8" x="120" y="184">

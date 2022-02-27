@@ -1,9 +1,10 @@
 Sprite_Character = Sprite:extend("Sprite_Character")
 
-function Sprite_Character.prototype:constructor(character)
+function Sprite_Character.prototype:constructor(character, lighter)
   Sprite.prototype.constructor(self)
   self.character = character
   self._characterName = nil
+  self._lighter = lighter
 end
 
 function Sprite_Character.prototype:update(dt)
@@ -15,6 +16,16 @@ function Sprite_Character.prototype:update(dt)
   self:updateSprite()
   self:updateRect()
   self:updatePosition()
+  self:updateLight(dt)
+end
+
+function Sprite_Character.prototype:updateLight()
+  if not self.light or not self._lighter then
+    return
+  end
+  local x, y = self.character._realPosition:get()
+  local ox, oy = self.character.light.offset:get()
+  self._lighter:updateLight(self.light, x + ox, y + oy)
 end
 
 function Sprite_Character.prototype:updateSprite()
