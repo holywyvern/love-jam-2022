@@ -1,5 +1,7 @@
 Game_Player = Game_Character:extend("Game_Player")()
 
+Game_Player._characterName = "player"
+
 function Game_Player:update(dt)
   Game_Character.prototype.update(self, dt)
   if Game_Interpreter:isRunning() then

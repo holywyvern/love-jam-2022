@@ -14,3 +14,7 @@ function Point.prototype:copy(point)
   self.x = point.x
   self.y = point.y
 end
+
+function Point.prototype:get()
+  return self.x, self.y
+end

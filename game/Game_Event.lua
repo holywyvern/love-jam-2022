@@ -8,3 +8,9 @@ end
 
 function Game_Event.prototype:draw()
 end
+
+function Game_Event:trigger()
+end
+
+Game_Event.spawns = {
+}

@@ -8,5 +8,7 @@ function love.conf(t)
   -- Set by default a 16:9 resolution (the most common one)
   t.window.width = TILE_SIZE * 16 * SCALE
   t.window.height = TILE_SIZE * 9 * SCALE
+  t.window.minwidth = TILE_SIZE * 16 * 2
+  t.window.minheight = TILE_SIZE * 9 * 2
   t.window.resizable = true
 end

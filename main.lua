@@ -1,14 +1,16 @@
-Assets   = nil
-Baton    = require "lib.baton"
-Roomy    = require "lib.roomy"
-Slog     = require "lib.slog"
-StalkerX = require "lib.stalker-x"
-Brady    = require "lib.brady"
+Assets       = nil
+Baton        = require "lib.baton"
+Roomy        = require "lib.roomy"
+Slog         = require "lib.slog"
+Icon         = Slog.icon
+StalkerX     = require "lib.stalker-x"
+Brady        = require "lib.brady"
+Cartographer = require "lib.cartographer"
 -- Player is created when the application loads
 Player = nil
 
-local STARTING_MAP = "test-map"
-local STARTING_POSITION = { 1, 1 }
+local STARTING_MAP = "test"
+local STARTING_POSITION = { 5, 4 }
 
 -- Game dependencies
 require "core"
@@ -18,13 +20,12 @@ require "managers"
 require "game"
 require "scenes"
 -- Drawable objects
+require "sprites"
 require "spritesets"
 
 local function loadAssets()
   Assets = require("lib.cargo").init("assets")
-  images = { frame = {} }
-  images.frame.default_8 = Assets.graphics.system.frame
-  Slog.frame.load()
+  Audio = Assets.audio
 end
 
 local function loadPlayer()

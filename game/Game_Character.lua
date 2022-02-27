@@ -1,13 +1,15 @@
 Game_Character = Object:extend("Game_Character")
 
+local FRAMES = {1, 0, 1, 2}
+
 function Game_Character.prototype:constructor()
   self._characterName = nil
   self._direction = 2
-  self._anim = 0
-  self._animTime = 0
+  self._anim = 1
+  self._animTime = 0.3
   self._animDelay = 0.3
   self._speed = 2
-  self._standAnim = false
+  self._standAnim = true
   self._walkAnim = true
   self._position = Point()
   self._realPosition = Point()
@@ -26,6 +28,14 @@ end
 function Game_Character.prototype:updateAnimation(dt)
   if not self:isAnimating() then
     return
+  end
+  self._animTime = self._animTime - dt
+  while self._animTime <= 0 do
+    self._animTime = self._animTime + self._animDelay
+    self._anim = self._anim + 1
+    if self._anim > #FRAMES then
+      self._anim = 1
+    end
   end
 end
 
@@ -68,4 +78,8 @@ end
 
 function Game_Character.prototype:direction()
   return self._direction
+end
+
+function Game_Character.prototype:frame()
+  return FRAMES[self._anim]
 end

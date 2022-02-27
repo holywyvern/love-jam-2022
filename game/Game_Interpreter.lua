@@ -37,7 +37,7 @@ end
 function Game_Interpreter:beginCommand()
   local code = self._processing.code
   if code == 'message' then
-    Message_Manager:show(self._processing.text)
+    Message_Manager:show(self._processing.text, self._processing.options)
     self._processing = nil
   elseif code == 'wait' then
     self._waitTime = self._processing.time
@@ -69,8 +69,8 @@ function Game_Interpreter:isRunning()
   return false
 end
 
-function Game_Interpreter:message(text)
-  self._commands:push({ code = "message", text = text or "" })
+function Game_Interpreter:message(text, options)
+  self._commands:push({ code = "message", text = text or "", options = options })
 end
 
 function Game_Interpreter:wait(time)
