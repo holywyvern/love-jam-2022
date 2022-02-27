@@ -6,7 +6,7 @@ Game_Camera.follower = Game_Player._realPosition
 
 function Game_Player:update(dt)
   Game_Character.prototype.update(self, dt)
-  if Game_Interpreter:isRunning() then
+  if  Game_Map.interpreter:isRunning() or self.interpreter:isRunning() then
     return
   end
   self:updateInput()

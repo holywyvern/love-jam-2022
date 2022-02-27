@@ -1,6 +1,7 @@
 Game_Map = {}
 
 function Game_Map:setup(mapName)
+  self.interpreter = Game_Interpreter()
   self._data = Cartographer.load("assets/data/maps/" .. mapName .. ".lua")
   local w, h = Game_Camera.width / 2, Game_Camera.height / 2
   Game_Camera.limits = Rect(w, h, self._data.width * 16, self._data.height * 16)
@@ -71,8 +72,8 @@ function Game_Map:data()
 end
 
 function Game_Map:update(dt)
-  Game_Interpreter:update(dt)
-  if Game_Interpreter:isRunning() then
+  self.interpreter:update(dt)
+  if self.interpreter:isRunning() then
     return
   end
   Game_Player:update(dt)

@@ -27,7 +27,8 @@ function Spriteset_Map.prototype:constructor()
   self._layers = Array()
   self._lighter = Lighter()
   local data = Game_Map:data()
-  self._lightCanvas = love.graphics.newCanvas(data.width * 16, data.height * 16)  
+  self._lightCanvas = love.graphics.newCanvas(data.width * 16, data.height * 16)
+  self._events = Array()
   for i, layer in ipairs(data.layers) do
     if layer.name == 'events' then
       self:createEvents(layer)
@@ -56,10 +57,13 @@ function Spriteset_Map.prototype:createEvents(layer)
       self._lighter:addLight(x, y, rad, r, g, b, a)
     end
   end
-  newLayer.events:push(Sprite_Character(Game_Player, self._lighter))
+  self._playerSprite = Sprite_Character(Game_Player, self._lighter)
+  self._events:push(self._playerSprite)
+  newLayer.events:push(self._playerSprite)
   for event in Game_Map.events:iterator() do
     local sprite = Sprite_Character(event, self._lighter)
     newLayer.events:push(sprite)
+    self._events:push(sprite)
     if event.light then
       local light = event.light
       local x, y = event._realPosition:get()
@@ -83,12 +87,22 @@ end
 function Spriteset_Map.prototype:updateLights(dt)
   love.graphics.setCanvas({ self._lightCanvas, stencil = true})
     local data = Game_Map:data()
-    local r = data.properties['ambient.red'] or 0.1
-    local g = data.properties['ambient.green'] or 0.1
-    local b = data.properties['ambient.blue'] or 0.1
-    local a = data.properties['ambient.alpha'] or 0.8
+    local r = data.properties['ambient.red'] or 0
+    local g = data.properties['ambient.green'] or 0
+    local b = data.properties['ambient.blue'] or 0
+    local a = data.properties['ambient.alpha'] or 1
     love.graphics.clear(r, g, b, a) -- Global illumination level
     self._lighter:drawLights()
+    love.graphics.setBlendMode("add")
+    for sprite in self._events:iterator() do
+      if sprite.character and sprite.character._characterName then
+        local img = sprite.image
+        sprite.image = Assets.graphics.characters[sprite.character._characterName .. '_outline']
+        sprite:draw()
+        sprite.image = img
+      end
+    end
+    love.graphics.setBlendMode("alpha")
   love.graphics.setCanvas()    
 end
 

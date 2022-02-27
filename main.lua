@@ -52,7 +52,6 @@ local function setupManagers()
 end
 
 local function setupGame()
-  Game_Interpreter:setup()
   Game_Switches:setup()
   Game_Variables:setup()
   Game_Camera:setup()
