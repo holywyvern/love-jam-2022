@@ -6,6 +6,7 @@ Icon         = Slog.icon
 StalkerX     = require "lib.stalker-x"
 Brady        = require "lib.brady"
 Cartographer = require "lib.cartographer"
+Lighter      = require "lib.lighter"
 -- Player is created when the application loads
 Player = nil
 

@@ -20,12 +20,18 @@ end
 
 function Spriteset_Map.prototype:constructor()
   self._layers = Array()
-  for i, layer in ipairs(Game_Map:data().layers) do
+  self._lighter = Lighter()
+  local data = Game_Map:data()
+  self._lightCanvas = love.graphics.newCanvas(data.width * 16, data.height * 16)  
+  for i, layer in ipairs(data.layers) do
     if layer.name == 'events' then
       self:createEvents(layer)
     else
       self._layers:push(layer)
     end
+  end
+  for poly in Game_Map._polygons:iterator() do
+    self._lighter:addPolygon(poly)
   end
 end
 
@@ -38,6 +44,17 @@ function Spriteset_Map.prototype:createEvents(layer)
       local y = math.ceil(object.y / 16)
       local d = object.properties.direction or "down"
       -- TODO: Spawn Event
+    elseif type == "light" then
+      local props = object.properties
+      local x = object.x or 0
+      local y = object.y or 0
+      local rad = props.radius or 32
+      local r = props.red or 0.8
+      local g = props.green or 0.8
+      local b = props.blue or 0.8
+      local a = props.alpha or 0.6
+      print(x, y, rad, r, g, b, a)
+      self._lighter:addLight(x, y, rad, r, g, b, a)
     end
   end
   newLayer.events:push(Sprite_Character(Game_Player))
@@ -48,10 +65,27 @@ function Spriteset_Map.prototype:update(dt)
   for layer in self._layers:iterator() do
     layer:update(dt)
   end
+  self:updateLights(dt)
+end
+
+function Spriteset_Map.prototype:updateLights(dt)
+  love.graphics.setCanvas({ self._lightCanvas, stencil = true})
+    local data = Game_Map:data()
+    local r = data.properties['ambient.red'] or 0.1
+    local g = data.properties['ambient.green'] or 0.1
+    local b = data.properties['ambient.blue'] or 0.1
+    local a = data.properties['ambient.alpha'] or 0.8
+    love.graphics.clear(r, g, b, a) -- Global illumination level
+    self._lighter:drawLights()
+  love.graphics.setCanvas()    
 end
 
 function Spriteset_Map.prototype:draw()
   for layer in self._layers:iterator() do
     layer:draw()
   end
+  love.graphics.setColor(1, 1, 1, 1)
+  love.graphics.setBlendMode("multiply", "premultiplied")
+  love.graphics.draw(self._lightCanvas)
+  love.graphics.setBlendMode("alpha")
 end
