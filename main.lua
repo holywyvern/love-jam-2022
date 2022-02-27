@@ -7,6 +7,7 @@ StalkerX     = require "lib.stalker-x"
 Brady        = require "lib.brady"
 Cartographer = require "lib.cartographer"
 Lighter      = require "lib.lighter"
+LuaStar      = require "lib.lua-star"
 -- Player is created when the application loads
 Player = nil
 
