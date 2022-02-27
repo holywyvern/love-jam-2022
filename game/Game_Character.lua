@@ -48,6 +48,7 @@ end
 
 function Game_Character.prototype:updateAnimation(dt)
   if not self:isAnimating() then
+    self._anim = 1
     return
   end
   self._animTime = self._animTime - dt
