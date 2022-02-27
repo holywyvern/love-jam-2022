@@ -3,6 +3,7 @@ Game_Character = Object:extend("Game_Character")
 local FRAMES = {1, 0, 1, 2}
 
 function Game_Character.prototype:constructor()
+  self.interpreter = Game_Interpreter()
   self._characterName = nil
   self._direction = 2
   self._anim = 1

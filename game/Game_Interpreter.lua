@@ -1,12 +1,12 @@
-Game_Interpreter = {}
+Game_Interpreter = Object:extend("Game_Interpreter")
 
-function Game_Interpreter:setup()
+function Game_Interpreter.prototype:constructor()
   self._commands = Array()
   self._processing = nil
   self._waitTime = 0
 end
 
-function Game_Interpreter:update(dt)
+function Game_Interpreter.prototype:update(dt)
   self:updateWait(dt)
   if self._processing then
     self:updateCommand(dt)
@@ -24,17 +24,17 @@ function Game_Interpreter:update(dt)
   end
 end
 
-function Game_Interpreter:updateWait(dt)
+function Game_Interpreter.prototype:updateWait(dt)
   if self._waitTime > 0 then
     self._waitTime = self._waitTime - dt
   end
 end
 
-function Game_Interpreter:updateCommand(dt)
+function Game_Interpreter.prototype:updateCommand(dt)
   local code = self._processing.code
 end
 
-function Game_Interpreter:beginCommand()
+function Game_Interpreter.prototype:beginCommand()
   local code = self._processing.code
   if code == 'message' then
     Message_Manager:show(self._processing.text, self._processing.options)
@@ -56,7 +56,7 @@ function Game_Interpreter:beginCommand()
   end
 end
 
-function Game_Interpreter:isRunning()
+function Game_Interpreter.prototype:isRunning()
   if Message_Manager:blocksInput() then
     return true
   end
@@ -69,23 +69,23 @@ function Game_Interpreter:isRunning()
   return false
 end
 
-function Game_Interpreter:message(text, options)
+function Game_Interpreter.prototype:message(text, options)
   self._commands:push({ code = "message", text = text or "", options = options })
 end
 
-function Game_Interpreter:wait(time)
+function Game_Interpreter.prototype:wait(time)
   self._commands:push({ code = "wait", time = time or 0 })
 end
 
-function Game_Interpreter:switchOn(name)
+function Game_Interpreter.prototype:switchOn(name)
   self._commands:push({ code = "switch", name = name, value = true })
 end
 
-function Game_Interpreter:switchOff(name)
+function Game_Interpreter.prototype:switchOff(name)
   self._commands:push({ code = "switch", name = name, value = false })
 end
 
-function Game_Interpreter:changeMap(map, x, y, d)
+function Game_Interpreter.prototype:changeMap(map, x, y, d)
   self._commands:push({
     code = "map",
     map = map,
