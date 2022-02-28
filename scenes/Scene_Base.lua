@@ -17,6 +17,7 @@ end
 
 function Scene_Base.prototype:update(dt)
   Player:update()
+  Message_Manager:update(dt)
   Game_System:update(dt)
   Game_Camera:update(dt)
 end

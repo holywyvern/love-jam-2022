@@ -63,7 +63,7 @@ end
 
 function Scene_Title.prototype:commandNewGame()
   self:_setupNewGame()
-  Scene_Manager:enter(Scene_Map())
+  Scene_Manager:enter(Scene_Intro())
 end
 
 function Scene_Title.prototype:commandContinue()
