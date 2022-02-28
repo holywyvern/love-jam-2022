@@ -7,8 +7,17 @@ end
 function Scene_Base.prototype:enter(previous)
 end
 
+function Scene_Base.prototype:pause(next, ...)
+  self:leave(next, ...)
+end
+
+function Scene_Base.prototype:resume(prev, ...)
+  self:enter(prev, ...)
+end
+
 function Scene_Base.prototype:update(dt)
   Player:update()
+  Game_System:update(dt)
   Game_Camera:update(dt)
 end
 
@@ -49,5 +58,5 @@ function Scene_Base.prototype:joystickadded(joystick)
   end
 end
 
-function Scene_Base.prototype.resize(w, h)
+function Scene_Base.prototype:resize(w, h)
 end

@@ -8,6 +8,7 @@ Brady        = require "lib.brady"
 Cartographer = require "lib.cartographer"
 Lighter      = require "lib.lighter"
 LuaStar      = require "lib.lua-star"
+JSON         = require "lib.json"
 -- Player is created when the application loads
 Player = nil
 
@@ -52,6 +53,7 @@ local function setupManagers()
 end
 
 local function setupGame()
+  Game_System:setup()
   Game_Switches:setup()
   Game_Variables:setup()
   Game_Camera:setup()

@@ -1,7 +1,7 @@
 Sprite = Object:extend("Sprite")
 
-function Sprite.prototype:constructor()
-  self.image = nil
+function Sprite.prototype:constructor(image)
+  self.image = image or nil
   self.srcRect = Rect(0, 0, 1, 1)
   self.position = Point()
   self.scale = Point(1, 1)
