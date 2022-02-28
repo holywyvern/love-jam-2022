@@ -7,6 +7,7 @@ function Game_Map:setup(mapName)
   Game_Camera.limits = Rect(w, h, self._data.width * 16, self._data.height * 16)
   self:_setupPolygons()
   self:_setupEvents()
+  self._mapName = mapName
 end
 
 function Game_Map:_setupPolygons()
@@ -133,4 +134,12 @@ function Game_Map:findPathFor(event, goal)
     event._position, goal,
     canWalk, false, true
   )
+end
+
+function Game_Map:save()
+  return { name = self._mapName }
+end
+
+function Game_Map:load(data)
+  self:setup(data.name)
 end

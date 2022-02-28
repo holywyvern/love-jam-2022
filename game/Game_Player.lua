@@ -26,8 +26,45 @@ function Game_Player:updateInput()
   elseif x < 0 then
     self:move("left")
   end
+  if self:isMoving() then
+    return
+  end
+  if Player:pressed("accept") then
+    self:_checkEventTrigger()
+  end
+end
+
+function Game_Player:_checkEventTrigger()
+  local d = self:direction()
+  local x, y = self._position:get()
+  if d == 2 then
+    y = y + 1
+  elseif d == 8 then
+    y = y - 1
+  elseif d == 4 then
+    x = x - 1
+  elseif d == 6 then
+    x = x + 1
+  end
+  local events = Game_Map:eventsAt(x, y)
+  for event in events:iterator() do
+    event:trigger()
+  end
 end
 
 function Game_Player:setup(x, y)
   self:moveTo(x, y)
+end
+
+function Game_Player:save()
+  return {
+    x = self._position.x,
+    y = self._position.y,
+    direction = self._direction
+  }
+end
+
+function Game_Player:load(data)
+  self:moveTo(data.x, data.y)
+  self:face(data.direction)
 end

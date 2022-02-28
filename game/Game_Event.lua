@@ -41,4 +41,5 @@ function Game_Event:from(x, y, props)
 end
 
 Game_Event.templates = {
+  save = require("game.events.Save_Event")
 }

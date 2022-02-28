@@ -93,16 +93,6 @@ function Spriteset_Map.prototype:updateLights(dt)
     local a = data.properties['ambient.alpha'] or .5
     love.graphics.clear(r, g, b, a) -- Global illumination level
     self._lighter:drawLights()
-    love.graphics.setBlendMode("add")
-    for sprite in self._events:iterator() do
-      if sprite.character and sprite.character._characterName then
-        local img = sprite.image
-        sprite.image = Assets.graphics.characters[sprite.character._characterName .. '_outline']
-        sprite:draw()
-        sprite.image = img
-      end
-    end
-    love.graphics.setBlendMode("alpha")
   love.graphics.setCanvas()    
 end
 
