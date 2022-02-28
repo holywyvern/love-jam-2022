@@ -6,8 +6,13 @@ end
 
 function Scene_Map.prototype:update(dt)
   Scene_Base.prototype.update(self, dt)
-  Game_Map:update(dt)
   self._spriteset:update(dt)
+end
+
+function Scene_Map.prototype:_updateBasicGame(dt)
+  Game_Player:update(dt)
+  Scene_Base.prototype._updateBasicGame(self, dt)
+  Game_Map:update(dt)
 end
 
 function Scene_Map.prototype:drawObjects()

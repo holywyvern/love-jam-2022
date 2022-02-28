@@ -13,6 +13,12 @@ end
 function Game_Event.prototype:trigger()
 end
 
+function Game_Event.prototype:step()
+end
+
+function Game_Event.prototype:touch()
+end
+
 function Game_Event:from(x, y, props)
   local event
   if props.template and Game_Event.templates[props.template] then
@@ -41,5 +47,16 @@ function Game_Event:from(x, y, props)
 end
 
 Game_Event.templates = {
-  save = require("game.events.Save_Event")
+  save = require("game.events.Save_Event"),
+  ["home.exit"] = require("game.events.home.Exit_Event"),
+  ["home.plant"] = require("game.events.home.Plant_Event"),
+  ["home.art"] = require("game.events.home.Art_Event"),
+  ["home.bed"] = require("game.events.home.Bed_Event"),
+  ["home.books"] = require("game.events.home.Books_Event"),
+  ["home.deco"] = require("game.events.home.Deco_Event"),
+  ["home.drawer"] = require("game.events.home.Drawer_Event"),
+  ["home.fridge"] = require("game.events.home.Fridge_Event"),
+  ["home.oven"] = require("game.events.home.Oven_Event"),
+  ["home.trash"] = require("game.events.home.Trash_Event"),
+  ["home.guitar"] = require("game.events.home.Guitar_Event")
 }

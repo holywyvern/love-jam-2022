@@ -24,3 +24,8 @@ function Game_Inventory:consume(item)
   local amount = math.max(0, self:amountOf(item) - 1)
   self._items[item] = amount
 end
+
+function Game_Inventory:add(item, amount)
+  local amount = self:amountOf(item) + amount
+  self._items[item] = math.min(99, math.max(0, amount))
+end

@@ -5,7 +5,7 @@ function Game_Variables:setup()
 end
 
 function Game_Variables:get(name)
-  return self._values or 0
+  return self._values[name] or 0
 end
 
 function Game_Variables:set(name, value)

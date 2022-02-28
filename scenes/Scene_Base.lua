@@ -17,9 +17,13 @@ end
 
 function Scene_Base.prototype:update(dt)
   Player:update()
+  self:_updateBasicGame(dt)
+end
+
+function Scene_Base.prototype:_updateBasicGame(dt)
   Message_Manager:update(dt)
   Game_System:update(dt)
-  Game_Camera:update(dt)
+  Game_Camera:update(dt)  
 end
 
 function Scene_Base.prototype:leave(next)
