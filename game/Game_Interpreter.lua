@@ -16,7 +16,7 @@ function Game_Interpreter.prototype:update(dt)
     return
   end
   if self._commands.length > 0 then
-    self._processing = self._commands.shift()
+    self._processing = self._commands:shift()
     self:beginCommand()
     self:update(dt)
   else
@@ -49,9 +49,14 @@ function Game_Interpreter.prototype:beginCommand()
     Game_Switches:set(self._processing.name, self._processing.value)
     self._processing = nil
   elseif code == 'map' then
+    Game_Map:setup(self._processing.map)
     Scene_Manager:enter(Scene_Map(), self._processing.map)
     Game_Player:moveTo(self._processing.x, self._processing.y)
     Game_Player:face(self._processing.direction)
+    self._processing = nil
+  elseif code == 'enter' then
+    local unpk = table.unpack or unpack
+    Scene_Manager:enter(self._processing.scene, unpk(self._processing.args))
     self._processing = nil
   end
 end
@@ -92,5 +97,13 @@ function Game_Interpreter.prototype:changeMap(map, x, y, d)
     x = x,
     y = y,
     d = d or Game_Player:direction()
+  })
+end
+
+function Game_Interpreter.prototype:enter(scene, ...)
+  self._commands:push({
+    code = "enter",
+    scene = scene,
+    args = { ... }
   })
 end
