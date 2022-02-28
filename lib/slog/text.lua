@@ -244,6 +244,20 @@ function M:is_finished()
     return self.current_character == #self.table_string or self.waitforinput
 end
 
+function M:is_paused()
+    return self.waitforinput
+end
+
+function M:is_end()
+    return self.current_character == #self.table_string
+end
+
+function M:skip()
+    if not self:is_finished() then
+        self.current_character = #self.table_string
+    end
+end
+
 --[[----------------------------------------------------------------------------------------------------
        CONTINUE - Continues printing if stopped by [waitforinput]
 ----------------------------------------------------------------------------------------------------]]--

@@ -4,15 +4,21 @@ function Scene_Intro.prototype:constructor()
   Scene_Base.prototype.constructor(self)
   self._interpreter = Game_Interpreter()
   self._interpreter:message(
-    "A huge earthquake has struck our Town\n" ..
-    "today. Everything shattered,"
+    "A huge earthquake has struck\n" ..
+    "our Town today.",
+    { position = "center" }
   )
-  self._interpreter:message("everything went dark...")
+  self._interpreter:message(
+    "Everything shattered,\n" ..
+    "everything went dark..."
+  )
   self._interpreter:message(
     "There's no energy or way of\n" ..
-    "communication...")
+    "communication..."
+  )
   self._interpreter:message(
-    "Maybe that's why everyone\ncalls it \"dark earthquake\""
+    "Maybe that's why everyone\n" ..
+    "calls it \"dark earthquake\""
   )
   self._interpreter:message(
     "My boyfriend hasn’t come\n" ..
