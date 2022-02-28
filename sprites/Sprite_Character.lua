@@ -56,6 +56,5 @@ function Sprite_Character.prototype:updateRect()
 end
 
 function Sprite_Character.prototype:updatePosition()
-  local x, y = self.character._realPosition:get()
-  self.position:set(math.floor(x), math.floor(y))
+  self.position:copy(self.character._realPosition)
 end

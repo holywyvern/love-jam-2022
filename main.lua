@@ -57,8 +57,6 @@ local function setupGame()
   Game_Switches:setup()
   Game_Variables:setup()
   Game_Camera:setup()
-  Game_Map:setup(STARTING_MAP)
-  Game_Player:setup(STARTING_POSITION[1], STARTING_POSITION[2])
 end
 
 local function setupScene()

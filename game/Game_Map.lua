@@ -4,7 +4,7 @@ function Game_Map:setup(mapName)
   self.interpreter = Game_Interpreter()
   self._data = Cartographer.load("assets/data/maps/" .. mapName .. ".lua")
   local w, h = Game_Camera.width / 2, Game_Camera.height / 2
-  Game_Camera.limits = Rect(w, h, self._data.width * 16, self._data.height * 16)
+  Game_Camera.limits = Rect(w, h, self._data.width * 16 - w, self._data.height * 16 - h)
   self:_setupPolygons()
   self:_setupEvents()
   self._mapName = mapName
@@ -74,10 +74,6 @@ end
 
 function Game_Map:update(dt)
   self.interpreter:update(dt)
-  if self.interpreter:isRunning() then
-    return
-  end
-  Game_Player:update(dt)
 end
 
 function Game_Map:isPassable(event, x, y)
@@ -103,6 +99,9 @@ function Game_Map:isPassable(event, x, y)
       return false
     end
   end
+  if Game_Player._position.x == x and Game_Player._position.y == y then
+    return Game_Player.walkable
+  end  
   return true
 end
 
@@ -112,9 +111,6 @@ function Game_Map:eventsAt(x, y)
     if event._position.x == x and event._position.y == y then
       result:push(event)
     end
-  end
-  if Game_Player._position.x == x and Game_Player._position.y == y then
-    result:push(Game_Player)
   end
   return result
 end

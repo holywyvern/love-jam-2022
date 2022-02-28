@@ -17,6 +17,7 @@ function Game_Character.prototype:constructor()
   self._targetPosition = Point()
   self._fixDirection = false
   self.walkable = false
+  self._moveBuffer = 0
 end
 
 
@@ -27,6 +28,9 @@ function Game_Character.prototype:update(dt)
 end
 
 function Game_Character.prototype:updateMovement(dt)
+  if self._moveBuffer > 0 then
+    self._moveBuffer = self._moveBuffer - dt
+  end
   local minx = math.min(self._realPosition.x, self._targetPosition.x)
   local miny = math.min(self._realPosition.y, self._targetPosition.y)
   local maxx = math.max(self._realPosition.x, self._targetPosition.x)
@@ -46,7 +50,11 @@ function Game_Character.prototype:updateMovement(dt)
   local dy = 16 * dt * self._speed * ty
   local x = math.min(maxx, math.max(minx, self._realPosition.x + dx))
   local y = math.min(maxy, math.max(miny, self._realPosition.y + dy))
+  local wasMoving = self:isMoving()
   self._realPosition:set(x, y)
+  if wasMoving and not self:isMoving() then
+    self._moveBuffer = 0.2
+  end
 end
 
 function Game_Character.prototype:updateAnimation(dt)
@@ -118,7 +126,7 @@ end
 
 
 function Game_Character.prototype:isAnimating()
-  local isMoving = self:isMoving()
+  local isMoving = self:isMoving() or self._moveBuffer > 0
   if self._walkAnim and isMoving then
     return true
   end
@@ -131,7 +139,7 @@ end
 function Game_Character.prototype:isMoving()
   local movingX = self._realPosition.x ~= self._targetPosition.x
   local movingY = self._realPosition.y ~= self._targetPosition.y
-  return movingX or movingY
+  return movingX or movingY  
 end
 
 function Game_Character.prototype:face(direction)

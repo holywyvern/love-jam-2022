@@ -33,6 +33,7 @@ function Message_Manager:setup()
     sound_number = 1,
     adjust_line_height = -2,
   })
+  self._wait = 0
   self._cursorBop = 0
   self._bop = 1
   self._visible = false
@@ -43,6 +44,9 @@ end
 function Message_Manager:update(dt)
   self._text:update(dt)
   self._cursorBop = self._cursorBop + 4 * dt
+  if self._wait > 0 then
+    self._wait = self._wait - dt
+  end
   if self._cursorBop > 1 then
     self._cursorBop = self._cursorBop - 1
     self._bop = self._bop + 1
@@ -58,6 +62,7 @@ function Message_Manager:update(dt)
     if Player:pressed('accept') then
       if self._text:is_end() then
         self._visible = false
+        self._wait = 0.3
       elseif self._text:is_paused() then
         self._text:continue()
       end
@@ -87,7 +92,7 @@ function Message_Manager:draw()
 end
 
 function Message_Manager:blocksInput()
-  return self._visible
+  return self._visible or self._wait > 0
 end
 
 function Message_Manager:show(text, options)

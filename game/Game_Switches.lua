@@ -5,11 +5,11 @@ function Game_Switches:setup()
 end
 
 function Game_Switches:get(name)
-  return self._values or 0
+  return self._values[name] or false
 end
 
 function Game_Switches:set(name, value)
-  self._values[name] = value or 0
+  self._values[name] = value or false
   return value
 end
 
