@@ -27,7 +27,7 @@ function Message_Manager:setup()
   self._text = Slog.text.new("left", {
     color = {0.9,0.9,0.9,1},
     shadow_color = {0.5,0.5,1,0.4}, 
-    font = Assets.fonts.silver(32),
+    font = Assets.fonts.silver(Game_Camera.tileSize),
     character_sound = true, 
     sound_every = 2, 
     sound_number = 1,
@@ -74,19 +74,21 @@ function Message_Manager:draw()
   if self._visible then
     local width = Game_Camera.width
     local height = Game_Camera.height
-    local x, y = (width - 320) / 2, 8
+    local boxWidth = Game_Camera.width * 3 / 4
+    local x, y = (width - boxWidth) / 2, 8
+    local p = Game_Camera.tileSize / 4
     if self._options.position == 'bottom' then
-      y = height - 88
+      y = height  - Game_Camera.tileSize * 2 - p * 3
     elseif self._options.position == 'center' then
-      y = (height - 80) / 2
+      y = (height - Game_Camera.tileSize * 2) / 2
     end
     if self._options.showFrame then
-      Slog.frame.draw("default", x, y, 320, 80)
+      Slog.frame.draw("default", x, y, boxWidth, Game_Camera.tileSize * 2 + p * 2)
     end
-    self._text:draw(x + 8, y + 8)
+    self._text:draw(x + p * 2, y + p)
     if self._text:is_finished() then
       local bop = BOPS[self._bop]
-      love.graphics.draw(Assets.graphics.system.cursor, (width - 16) / 2, y + 80 - 14 + bop)
+      love.graphics.draw(Assets.graphics.system.cursor, (width - 16) / 2, y + Game_Camera.tileSize + p * 4 + 2 + bop)
     end
   end
 end
