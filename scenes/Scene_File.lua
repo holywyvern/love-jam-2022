@@ -19,11 +19,13 @@ function Scene_File.prototype:update(dt)
     if self._selected > Save_Manager.MAX_FILES then
       self._selected = 1
     end
+    Audio_Manager:playSFX("menu_select2")
   elseif Player:pressed("up") then
     self._selected = self._selected - 1
     if self._selected < 1 then
       self._selected = Save_Manager.MAX_FILES
     end
+    Audio_Manager:playSFX("menu_select2")
   end
 end
 
@@ -76,6 +78,7 @@ end
 
 function Scene_File.prototype:onCancel()
   Scene_Manager:pop()
+  Audio_Manager:playSFX("menu_back")
 end
 
 function Scene_File.prototype:helperText()
