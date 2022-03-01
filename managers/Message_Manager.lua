@@ -63,8 +63,10 @@ function Message_Manager:update(dt)
       if self._text:is_end() then
         self._visible = false
         self._wait = 0.3
+        Audio_Manager:playSFX("menu_select")
       elseif self._text:is_paused() then
         self._text:continue()
+        Audio_Manager:playSFX("menu_select")
       end
     end
   end

@@ -32,15 +32,19 @@ function Scene_Title.prototype:update(dt)
     if self._selected > self._commands.length then
       self._selected = 1
     end
+    Audio_Manager:playSFX("menu_select2") 
   elseif Player:pressed("up") then
     self._selected = self._selected - 1
     if self._selected < 1 then
       self._selected = self._commands.length
     end
+    Audio_Manager:playSFX("menu_select2") 
   elseif Player:pressed("accept") then
     self:_onSelect()
+    Audio_Manager:playSFX("menu_select")
   elseif Player:pressed("cancel") then
     self._selected = self._commands.length
+    Audio_Manager:playSFX("menu_back") 
   end
 end
 

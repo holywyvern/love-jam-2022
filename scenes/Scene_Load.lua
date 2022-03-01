@@ -4,6 +4,9 @@ function Scene_Load.prototype:onSelect(index)
   if Save_Manager:exists(index) then
     Save_Manager:load(index)
     Scene_Manager:enter(Scene_Map())
+    Audio_Manager:playSFX("buff_up")
+  else
+    Audio_Manager:playSFX("error1")
   end
 end
 

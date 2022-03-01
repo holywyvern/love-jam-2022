@@ -75,6 +75,14 @@ function Game_Interpreter.prototype:beginCommand()
   elseif code == 'addItem' then
     Game_Inventory:add(self._processing.item, self._processing.amount or 1)
     self._processing = nil
+  elseif code == 'bgm' then
+    Audio_Manager:playBGM(self._processing.name)
+    self._processing = nil
+  elseif code == 'sfx' then
+    Audio_Manager:playSFX(self._processing.name)
+    self._processing = nil
+  elseif code == 'stopBGM' then
+    Audio_Manager:stopBGM()
   end
 end
 
@@ -164,4 +172,37 @@ function Game_Interpreter.prototype:waitForMove(event)
     code = "waitMove",
     event = event
   })
+end
+
+function Game_Interpreter.prototype:playSFX(name)
+  self._commands:push({
+    code = "sfx",
+    name = name
+  })
+end
+
+function Game_Interpreter.prototype:playSoundEffect(name)
+  self:playSFX(name)
+end
+
+function Game_Interpreter.prototype:playBGM(name)
+  self._commands:push({
+    code = "bgm",
+    name = name
+  })
+end
+
+function Game_Interpreter.prototype:stopBGM()
+  self._commands:push({
+    code = "stopBGM",
+  })
+end
+
+function Game_Interpreter.prototype:playMusic(name)
+  self:playBGM(name)
+end
+
+
+function Game_Interpreter.prototype:stopMusic()
+  self:stopBGM()
 end

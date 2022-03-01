@@ -1,0 +1,82 @@
+Scene_AudioTest = Scene_Base:extend("Scene_AudioTest")
+
+local function basename(str)
+	return string.gsub(str, "(%w+)%.(%w+)", "%1")
+end
+
+function Scene_AudioTest.prototype:constructor()
+  Scene_Base.prototype.constructor(self)
+  self._bgm = {}
+  self._sfx = self:_findSFX()
+  self._selectedSFX = 1
+  self._selectedBGM = 1
+  self._selected = 1
+  self._font = Assets.fonts.silver(Game_Camera.tileSize)
+end
+
+function Scene_AudioTest.prototype:_findSFX()
+  return love.filesystem.getDirectoryItems("assets/audio/sfx") or {}
+end
+
+function Scene_AudioTest.prototype:update(dt)
+  Scene_Base.prototype.update(self, dt)
+  if self._selected == 2 then
+    self:_updateBGMSelection(dt)
+  else
+    self:_updateSFXSelection(dt)
+  end
+end
+
+function Scene_AudioTest.prototype:_updateBGMSelection(dt)
+  if Player:pressed("up") or Player:pressed("down") then
+    self._selected = 1
+  elseif Player:pressed("accept") then
+  elseif Player:pressed("cancel") then
+    Scene_Manager:pop()
+  end
+end
+
+function Scene_AudioTest.prototype:_updateSFXSelection(dt)
+  if Player:pressed("left") then
+    self._selectedSFX = self._selectedSFX - 1
+    if self._selectedSFX < 1 then
+      self._selectedSFX = #self._sfx
+    end
+  elseif Player:pressed("right") then
+    self._selectedSFX = self._selectedSFX + 1
+    if self._selectedSFX > #self._sfx then
+      self._selectedSFX = 1
+    end
+  elseif Player:pressed("up") or Player:pressed("down") then
+    self._selected = 2
+  elseif Player:pressed("accept") then
+    local sfxName = basename(self._sfx[self._selectedSFX] or "")
+    if #sfxName > 0 then
+      Audio_Manager:playSFX(sfxName)
+    end
+  elseif Player:pressed("cancel") then
+    Scene_Manager:pop()
+  end
+end
+
+function Scene_AudioTest.prototype:drawUI()
+  local ts = Game_Camera.tileSize
+  local p = ts / 4
+  local h = ts * 2 + p
+  local x = p * 5
+  local y = (Game_Camera.height - h) / 2
+  love.graphics.setFont(self._font)
+  if self._selected == 1 then
+    love.graphics.setColor(1, 0, 0, 1)
+  else
+    love.graphics.setColor(1, 1, 1, 1)
+  end
+  love.graphics.print("<- SFX: " .. tostring(self._selectedSFX) .. ' ->', x, y)
+  if self._selected == 2 then
+    love.graphics.setColor(1, 0, 0, 1)
+  else
+    love.graphics.setColor(1, 1, 1, 1)
+  end
+  love.graphics.print("<- BGM: " .. tostring(self._selectedBGM) .. ' ->', x, y + ts + p)
+  love.graphics.setColor(1, 1, 1, 1)
+end

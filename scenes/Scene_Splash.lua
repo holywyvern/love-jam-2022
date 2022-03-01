@@ -49,13 +49,16 @@ function Scene_Splash.prototype:leave()
 end
 
 function Scene_Splash.prototype:keypressed()
+  Audio_Manager:playSFX("menu_back")
   self._splash:skip()
 end
 
 function Scene_Splash.prototype:gamepadpressed()
+  Audio_Manager:playSFX("menu_back")
   self._splash:skip()
 end
 
 function Scene_Splash.prototype:mousepressed()
+  Audio_Manager:playSFX("menu_back")
   self._splash:skip()
 end
