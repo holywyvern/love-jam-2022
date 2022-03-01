@@ -16,6 +16,7 @@ function E.prototype:trigger()
       { showFrame = true, position = "bottom" }
     )
     Game_Map.interpreter:switchOn("home.candles")
+    --Game_Map.interpreter:addItem("candles", 3)
   end
 end
 
