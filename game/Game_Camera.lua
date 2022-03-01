@@ -1,7 +1,10 @@
 Game_Camera = {}
 
-local SCREEN_WIDTH = 32 * 16
-local SCREEN_HEIGHT = 32 * 9
+
+Game_Camera.tileSize = 16
+
+local SCREEN_WIDTH = Game_Camera.tileSize * 16
+local SCREEN_HEIGHT = Game_Camera.tileSize * 9
 
 function Game_Camera:setup()
   self._cam = StalkerX.new(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT)
