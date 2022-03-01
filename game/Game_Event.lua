@@ -58,5 +58,7 @@ Game_Event.templates = {
   ["home.fridge"] = require("game.events.home.Fridge_Event"),
   ["home.oven"] = require("game.events.home.Oven_Event"),
   ["home.trash"] = require("game.events.home.Trash_Event"),
-  ["home.guitar"] = require("game.events.home.Guitar_Event")
+  ["home.guitar"] = require("game.events.home.Guitar_Event"),
+  ["home.tv"] = require("game.events.home.TV_Event"),
+  teleport = require("game.events.Teleport_Event")
 }

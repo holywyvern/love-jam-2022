@@ -1,7 +1,7 @@
 Scene_Title = Scene_Base:extend("Scene_Title")
 
-local STARTING_MAP = "home"
-local STARTING_POSITION = { 22, 11 }
+local STARTING_MAP = "mapa_home_lua"
+local STARTING_POSITION = { 11, 8 }
 
 function Scene_Title.prototype:enter()
   self._setupNewGame()
