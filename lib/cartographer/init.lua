@@ -30,6 +30,14 @@ local cartographer = {
 	]]
 }
 
+local function getRealGID(tileId)
+	if not tileId then
+		return nil
+	end
+	local id = bit.band(tileId, 0xFFFFFFF)
+	return id
+end
+
 -- gets the error level needed to make an error appear
 -- in the user's code, not the library code
 local function getUserErrorLevel()
@@ -373,6 +381,53 @@ function Layer.spritelayer:_setSprite(x, y, gid)
 		end
 		return
 	end
+	-- Get gid flippings
+	local bit31   = 2147483648
+	local bit30   = 1073741824
+	local bit29   = 536870912
+	local flipX   = false
+	local flipY   = false
+	local flipD   = false
+	local ignored = bit.band(gid, 0x20000000) ~= 0
+	local sx = 1
+	local sy = 1
+	local angle = 0
+	local realgid = gid
+	if realgid >= bit31 then
+		realgid = realgid - bit31
+		flipX = not flipX
+	end
+	if realgid >= bit30 then
+		realgid = realgid - bit30
+		flipY = not flipY
+	end
+	if realgid >= bit29 then
+		realgid = realgid - bit29
+		flipD = not flipD
+	end	
+	if flipX then
+		if flipY and flipD then
+			angle  = math.rad(-90)
+			sy = -1
+		elseif flipY then
+			sx = -1
+			sy = -1
+		elseif flipD then
+			angle = math.rad(90)
+		else
+			sx = -1
+		end
+	elseif flipY then
+		if flipD then
+			angle = math.rad(-90)
+		else
+			sy = -1
+		end
+	elseif flipD then
+		angle  = math.rad(90)
+		sy = -1
+	end	
+	gid = realgid
 	local index
 	-- check if a sprite already exists at (x, y)
 	for i = 1, #self._sprites.exists do
@@ -394,18 +449,20 @@ function Layer.spritelayer:_setSprite(x, y, gid)
 	-- update the sprite's tile GID
 	self._sprites.tileGid[index] = gid
 	local tileset = self._map:getTileset(gid)
-	-- if the sprite should be batched...
+	-- if the sprite should be batched...	
 	if tileset.image then
 		-- get the new quad
 		local animation = self._animations[gid]
 		local quad = self._map:_getTileQuad(gid, animation and animation.currentFrame)
+		local w2 = tileset.tilewidth / 2
+		local h2 = tileset.tileheight / 2
 		-- if the sprite isn't batched, add it to the sprite batch
 		if not self._sprites.spriteBatch[index] then
 			self._sprites.spriteBatch[index] = self._spriteBatches[tileset]
-			self._sprites.id[index] = self._spriteBatches[tileset]:add(quad, x, y)
+			self._sprites.id[index] = self._spriteBatches[tileset]:add(quad, x + w2, y + h2, angle, sx, sy, w2, h2)
 		-- otherwise, just update the sprite batch
 		else
-			self._sprites.spriteBatch[index]:set(self._sprites.id[index], quad, x, y)
+			self._sprites.spriteBatch[index]:set(self._sprites.id[index], quad, x + w2, y + h2, angle, sx, sy, w2, h2)
 		end
 	-- otherwise...
 	else
@@ -445,7 +502,7 @@ function Layer.spritelayer:_updateAnimations(dt)
 			-- increment the animation timer by the duration of the new frame
 			animation.timer = animation.timer + animation.frames[animation.currentFrame].duration
 			-- update sprites
-			local tileset = self._map:getTileset(gid)
+			local tileset = self._map:getTileset(gid)			
 			if tileset.image then
 				local quad = self._map:_getTileQuad(gid, animation.currentFrame)
 				for i = 1, #self._sprites.exists do
@@ -465,17 +522,6 @@ function Layer.spritelayer:update(dt)
 	self:_updateAnimations(dt)
 end
 
-local function getRealGID(tileId)
-	if not tileId then
-		return nil
-	end
-	local id = bit.band(tileId, 0xFFFFFFF)
-	if tileId ~= id then
-		print(tileId, id)
-	end
-	return id
-end
-
 --- Draws the layer.
 function Layer.spritelayer:draw()
 	love.graphics.push()
@@ -487,23 +533,11 @@ function Layer.spritelayer:draw()
 	-- draw the unbatched sprites
 	for i = 1, #self._sprites.exists do
 		if not self._sprites.spriteBatch[i] then
-			local gid = getRealGID(self._sprites.tileGid[i])
-			local flipX = bit.band(self._sprites.tileGid[i], 0x100000000)
-			local flipY = bit.band(self._sprites.tileGid[i], 0x80000000)
-			local anti = bit.band(self._sprites.tileGid[i], 0x20000000)
-			local sx = 1
-			local sy = 1
-			if flipX then
-				sx = -1
-			end
-			if flipY then
-				sy = -1
-			end
 			local animation = self._animations[gid]
 			local image = self._map:_getTileImage(gid, animation and animation.currentFrame)
 			love.graphics.push()
-				love.graphics.scale(sx, sy)
-				love.graphics.rotate(angle)
+				-- love.graphics.scale(sx, sy)
+				-- love.graphics.rotate(angle)
 				love.graphics.draw(image, self._sprites.x[i], self._sprites.y[i])
 			love.graphics.pop()
 		end
@@ -537,7 +571,7 @@ function Layer.tilelayer:_init(map)
 	Layer.spritelayer._init(self, map)
 	self:_decodeData()
 	for _, gid, _, _, pixelX, pixelY in self:getTiles() do
-		self:_setSprite(pixelX, pixelY,  getRealGID(gid))
+		self:_setSprite(pixelX, pixelY,  gid)
 	end
 end
 
