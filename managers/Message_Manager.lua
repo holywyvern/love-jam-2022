@@ -62,11 +62,9 @@ function Message_Manager:update(dt)
     if Player:pressed('accept') then
       if self._text:is_end() then
         self._visible = false
-        self._wait = 0.3
-        Audio_Manager:playSFX("menu_select")
+        self._wait = 0.3        
       elseif self._text:is_paused() then
-        self._text:continue()
-        Audio_Manager:playSFX("menu_select")
+        self._text:continue()        
       end
     end
   end
