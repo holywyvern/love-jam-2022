@@ -18,13 +18,25 @@ function Game_Character.prototype:constructor()
   self._fixDirection = false
   self.walkable = false
   self._moveBuffer = 0
+  self._color = {1, 1, 1, 1}
+  self._jumpTime = 0
+  self._jumpArc = 0
 end
 
 
 function Game_Character.prototype:update(dt)
+  self:updateJump(dt)
   self:updateMovement(dt)
   self:updateAnimation(dt)
   self:updateFollower(dt)
+end
+
+function Game_Character.prototype:updateJump(dt)
+  if self._jumpTime <= 0 then
+    return
+  end
+  self._jumpTime = math.max(0, self._jumpTime - dt)
+  self._jumpArc = math.sin(math.rad(180 - 180 * self._jumpTime / self._totalJumpTime))
 end
 
 function Game_Character.prototype:updateMovement(dt)
@@ -137,9 +149,10 @@ function Game_Character.prototype:isAnimating()
 end
 
 function Game_Character.prototype:isMoving()
+  local jumping = self._jumpTime > 0
   local movingX = self._realPosition.x ~= self._targetPosition.x
   local movingY = self._realPosition.y ~= self._targetPosition.y
-  return movingX or movingY  
+  return jumping or movingX or movingY  
 end
 
 function Game_Character.prototype:face(direction)
@@ -179,4 +192,20 @@ function Game_Character.prototype:faceAt(x, y)
   elseif y < self._position.y then
     self:face("up")
   end
+end
+
+function Game_Character.prototype:distanceFrom(x1, y1)
+  local x2, y2 = self._position:get()
+  local x, y = (x2 - x1), (y2 - y1)
+  return math.sqrt(x * x + y * y)
+end
+
+function Game_Character.prototype:jump(x, y)
+  if not Game_Map:isPassable(self, x, y) then
+    self:jump(0, 0)
+  end
+  self._totalJumpTime = math.min(0.3, self:distanceFrom(x, y))
+  self._jumpTime = self._totalJumpTime
+  self._targetPosition:set(x * 16, y * 16)
+  self._position:set(x, y)
 end

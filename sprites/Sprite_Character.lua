@@ -25,6 +25,7 @@ function Sprite_Character.prototype:updateLight()
   if not self.character then
     return 
   end
+  self.color = self.character._color
   local light = self.character.light
   if light and not self.light then
     local x, y = self.character._realPosition:get()
@@ -77,4 +78,5 @@ end
 
 function Sprite_Character.prototype:updatePosition()
   self.position:copy(self.character._realPosition)
+  self.position.y = self.position.y - self.character._jumpArc * 16
 end
