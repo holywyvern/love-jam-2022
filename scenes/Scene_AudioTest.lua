@@ -80,21 +80,27 @@ end
 function Scene_AudioTest.prototype:drawUI()
   local ts = Game_Camera.tileSize
   local p = ts / 4
-  local h = ts * 2 + p
-  local x = p * 5
+  local h = ts * 3 + p * 2
   local y = (Game_Camera.height - h) / 2
   love.graphics.setFont(self._font)
+  love.graphics.setColor(1, 1, 0, 1)
+  local w = self._font:getWidth("Audio Test")
+  love.graphics.print("Audio Test", (Game_Camera.width - w) / 2, y)
   if self._selected == 1 then
     love.graphics.setColor(1, 0, 0, 1)
   else
     love.graphics.setColor(1, 1, 1, 1)
   end
-  love.graphics.print("<- SFX: " .. tostring(self._selectedSFX) .. ' ->', x, y)
+  local text = "<- SFX: " .. tostring(self._selectedSFX) .. ' ->'
+  w = self._font:getWidth(text)
+  love.graphics.print(text, (Game_Camera.width - w) / 2, y + ts + p)
   if self._selected == 2 then
     love.graphics.setColor(1, 0, 0, 1)
   else
     love.graphics.setColor(1, 1, 1, 1)
   end
-  love.graphics.print("<- BGM: " .. tostring(self._selectedBGM) .. ' ->', x, y + ts + p)
+  text = "<- BGM: " .. tostring(self._selectedBGM) .. ' ->'
+  w = self._font:getWidth(text)
+  love.graphics.print(text,  (Game_Camera.width - w) / 2, y + ts * 2 + p * 2)
   love.graphics.setColor(1, 1, 1, 1)
 end

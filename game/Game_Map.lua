@@ -74,6 +74,9 @@ end
 
 function Game_Map:update(dt)
   self.interpreter:update(dt)
+  for event in self.events:iterator() do
+    event:update(dt)
+  end
 end
 
 function Game_Map:isPassable(event, x, y)

@@ -1,15 +1,66 @@
 Game_Player = Game_Character:extend("Game_Player")()
 
+Game_Player.maxHP = 100
+Game_Player.hp = Game_Player.maxHP
 Game_Player._characterName = "player"
-
 Game_Camera.follower = Game_Player._realPosition
+
+function Game_Player:heal()
+  self.hp = self.maxHP
+end
+
+function Game_Player:isDead()
+  return self.hp <= 0
+end
 
 function Game_Player:update(dt)
   Game_Character.prototype.update(self, dt)
-  if  Message_Manager:blocksInput() or Game_Map.interpreter:isRunning() or self.interpreter:isRunning() then
+  if Game_Inventory.menuOpen then
+    self:updateMenu()
+    return
+  end
+  if not self:canInput() then
     return
   end
   self:updateInput()
+end
+
+function Game_Player:canInput()
+  local blocked = Message_Manager:blocksInput() or Game_Map.interpreter:isRunning() or self.interpreter:isRunning()
+  return not blocked
+end
+
+function Game_Player:updateMenu()
+  if Player:pressed("cancel") then
+    Game_Inventory.menuOpen = false
+    Audio_Manager:playSFX("menu_back")
+  elseif Player:pressed("accept") then
+    Audio_Manager:playSFX("menu_select")
+    Game_Inventory.menuOpen = false
+    Game_Inventory.selection = Game_Inventory.currentSelection
+  elseif Player:pressed("left") then
+    if Game_Inventory.currentSelection == 1 then
+      Game_Inventory.currentSelection = 6
+    elseif Game_Inventory.currentSelection == 7 then
+      Game_Inventory.currentSelection = 12
+    else
+      Game_Inventory.currentSelection = Game_Inventory.currentSelection - 1
+    end
+  elseif Player:pressed("right") then
+    if Game_Inventory.currentSelection == 6 then
+      Game_Inventory.currentSelection = 1
+    elseif Game_Inventory.currentSelection == 12 then
+      Game_Inventory.currentSelection = 7
+    else
+      Game_Inventory.currentSelection = Game_Inventory.currentSelection + 1
+    end
+  elseif Player:pressed("up") or Player:pressed("down") then
+    if Game_Inventory.currentSelection > 6 then
+      Game_Inventory.currentSelection = Game_Inventory.currentSelection - 6
+    else
+      Game_Inventory.currentSelection = Game_Inventory.currentSelection + 6
+    end
+  end
 end
 
 function Game_Player:updateInput()
@@ -31,6 +82,9 @@ function Game_Player:updateInput()
   end
   if Player:pressed("accept") then
     self:_checkEventTrigger()
+  elseif Player:pressed("cancel") then
+    Game_Inventory.menuOpen = true
+    Game_Inventory.currentSelection = Game_Inventory.selection
   end
 end
 
