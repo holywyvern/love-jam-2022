@@ -43,7 +43,8 @@ function Class.prototype:constructor(name, parent)
 end
 
 function Class.prototype:toString()
-  return 'Class<' .. self.name .. '>'
+  local name = self.name or '???'
+  return 'Class<' .. name .. '>'
 end
 
 Class.prototype.extend = Object.extend
