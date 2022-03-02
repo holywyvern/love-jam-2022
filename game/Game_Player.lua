@@ -198,3 +198,22 @@ function Game_Player:move(direction)
     self:_checkEventTouch(direction)
   end
 end
+
+function Game_Player:die()
+  Scene_Manager:enter(Scene_GameOver())
+end
+
+function Game_Player:hit(direction)
+  self:face(direction)
+  local d = self:_directionOf(direction)
+  local x, y = self._position:get()
+  if d == 2 then
+    self:jump(x, y + 1)
+  elseif d == 4 then
+    self:jump(x - 1, y)
+  elseif d == 6 then
+    self:jump(x + 1, y)
+  elseif d == 8 then
+    self:jump(x, y + 1)
+  end
+end
