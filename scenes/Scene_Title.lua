@@ -51,12 +51,15 @@ end
 function Scene_Title.prototype:drawUI()
   love.graphics.setColor(1, 1, 1, self._opacity)
   love.graphics.draw(self._back)
-  love.graphics.draw(self._title)
+  local tw, th = self._title:getDimensions()
+  local tx = (Game_Camera.width - tw) / 2
+  local ty = 8
+  love.graphics.draw(self._title, tx, ty)
   for command in self._commands:iterator() do
     command:draw()
   end
   local selected = self._commands[self._selected]
-  love.graphics.draw(self._cursor, selected.position.x, selected.position.y)
+  love.graphics.draw(self._cursor, selected.position.x - 10, selected.position.y + 5)
   love.graphics.setColor(1, 1, 1, 1)
 end
 

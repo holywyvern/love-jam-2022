@@ -69,5 +69,7 @@ end
 function Scene_Base.prototype:keypressed(key)
   if key == 'f5' then
     Scene_Manager:push(Scene_AudioTest())
+  elseif key == 'f12' then
+    Scene_Manager:push(Scene_Credits())
   end
 end
