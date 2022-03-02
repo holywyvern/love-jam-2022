@@ -83,6 +83,13 @@ function Game_Interpreter.prototype:beginCommand()
     self._processing = nil
   elseif code == 'stopBGM' then
     Audio_Manager:stopBGM()
+    self._processing = nil
+  elseif code == "save" then
+    Scene_Manager:push(Scene_Save())
+    self._processing = nil
+  elseif code == "heal" then
+    Game_Player:heal()
+    self._processing = nil
   end
 end
 
@@ -221,4 +228,16 @@ end
 
 function Game_Interpreter.prototype:soundEffect(name)
   self:playSFX(name)
+end
+
+function Game_Interpreter.prototype:heal()
+  self._commands:push({
+    code = "heal"
+  })
+end
+
+function Game_Interpreter.prototype:save()
+  self._commands:push({
+    code = "save"
+  })
 end
