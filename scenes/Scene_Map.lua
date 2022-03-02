@@ -3,12 +3,14 @@ Scene_Map = Scene_Base:extend("Scene_Map")
 function Scene_Map.prototype:enter(prev, result)
   self._spriteset = Spriteset_Map()
   self._inventory = Spriteset_Inventory()
+  self._hud = Spriteset_Hud()
 end
 
 function Scene_Map.prototype:update(dt)
   Scene_Base.prototype.update(self, dt)
   self._spriteset:update(dt)
   self._inventory:update(dt)
+  self._hud:update(dt)
 end
 
 function Scene_Map.prototype:_updateBasicGame(dt)
@@ -23,4 +25,5 @@ end
 
 function Scene_Map.prototype:drawUI()
   self._inventory:draw()
+  self._hud:draw()
 end

@@ -19,12 +19,33 @@ function Sprite_Character.prototype:update(dt)
 end
 
 function Sprite_Character.prototype:updateLight()
-  if not self.light or not self._lighter then
+  if not self._lighter then
+    return
+  end
+  if not self.character then
+    return 
+  end
+  local light = self.character.light
+  if light and not self.light then
+    local x, y = self.character._realPosition:get()
+    local ox, oy = light.offset:get()
+    self.light = self._lighter:addLight(
+      x + ox, y + oy,
+      light.radius, light.red, light.green, light.blue, light.alpha
+    )
+  elseif not self.character.light and self.light then
+    self._lighter:removeLight(self.light)
+    self.light = nil
+  end
+  if not self.light then
     return
   end
   local x, y = self.character._realPosition:get()
   local ox, oy = self.character.light.offset:get()
-  self._lighter:updateLight(self.light, x + ox, y + oy)
+  self._lighter:updateLight(
+    self.light, x + ox, y + oy,
+    light.radius, light.red, light.green, light.blue, light.alpha
+  )
 end
 
 function Sprite_Character.prototype:updateSprite()

@@ -5,6 +5,12 @@ Game_Player.hp = Game_Player.maxHP
 Game_Player._characterName = "player"
 Game_Camera.follower = Game_Player._realPosition
 
+local MAX_CANDLE_TIME = 60 
+
+Game_Player.MAX_CANDLE_TIME = MAX_CANDLE_TIME
+Game_Player._candleTime = MAX_CANDLE_TIME
+Game_Player._candleWobble = 0
+
 function Game_Player:heal()
   self.hp = self.maxHP
 end
@@ -15,6 +21,9 @@ end
 
 function Game_Player:update(dt)
   Game_Character.prototype.update(self, dt)
+  if Game_Inventory:hand() == "candle" then
+    self:updateCandle(dt)
+  end
   if Game_Inventory.menuOpen then
     self:updateMenu()
     return
@@ -23,6 +32,20 @@ function Game_Player:update(dt)
     return
   end
   self:updateInput()
+end
+
+function Game_Player:updateCandle(dt)
+  self._candleTime = self._candleTime - dt
+  if self._candleTime < 0 then
+    self._candleTime = MAX_CANDLE_TIME
+    self.light = nil
+    Game_Inventory.selection = 1
+    Game_Inventory:consume("candle")
+  else
+    self._candleWobble = self._candleWobble + dt * 5
+    local r = 59 + self._candleTime * 5 / MAX_CANDLE_TIME
+    self.light.radius =  r + math.sin(self._candleWobble)
+  end
 end
 
 function Game_Player:canInput()
@@ -38,6 +61,18 @@ function Game_Player:updateMenu()
     Audio_Manager:playSFX("menu_select")
     Game_Inventory.menuOpen = false
     Game_Inventory.selection = Game_Inventory.currentSelection
+    if Game_Inventory:hand() == 'candle' then
+      self.light = {
+        radius = 64,
+        red = 1,
+        green = 0.8,
+        blue = 0.7,
+        alpha = 0.3,
+        offset = Point(8, 8)
+      }
+    else
+      self.light = nil
+    end
   elseif Player:pressed("left") then
     if Game_Inventory.currentSelection == 1 then
       Game_Inventory.currentSelection = 6
@@ -140,13 +175,18 @@ function Game_Player:save()
   return {
     x = self._position.x,
     y = self._position.y,
-    direction = self._direction
+    direction = self._direction,
+    candleTime = self._candleTime,
+    maxHP = self.maxHP
   }
 end
 
 function Game_Player:load(data)
   self:moveTo(data.x, data.y)
   self:face(data.direction)
+  self._candleTime = candleTime or MAX_CANDLE_TIME
+  self.maxHP = data.maxHP or 100
+  self.hp = self.maxHP
 end
 
 function Game_Player:move(direction)

@@ -37,8 +37,8 @@ function Game_Inventory:hasItem(item)
   return self:amountOf(item) > 0
 end
 
-function Game_Inventory:consume(item)
-  local amount = math.max(0, self:amountOf(item) - 1)
+function Game_Inventory:consume(item, quantity)
+  local amount = math.max(0, self:amountOf(item) - (quantity or 1))
   self._items[item] = amount
 end
 
