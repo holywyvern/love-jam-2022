@@ -6,12 +6,16 @@ end
 
 function Scene_AudioTest.prototype:constructor()
   Scene_Base.prototype.constructor(self)
-  self._bgm = {}
+  self._bgm = self:_findBGM()
   self._sfx = self:_findSFX()
   self._selectedSFX = 1
   self._selectedBGM = 1
   self._selected = 1
   self._font = Assets.fonts.silver(Game_Camera.tileSize)
+end
+
+function Scene_AudioTest.prototype:_findBGM()
+  return love.filesystem.getDirectoryItems("assets/audio/bgm") or {}
 end
 
 function Scene_AudioTest.prototype:_findSFX()
@@ -28,9 +32,23 @@ function Scene_AudioTest.prototype:update(dt)
 end
 
 function Scene_AudioTest.prototype:_updateBGMSelection(dt)
-  if Player:pressed("up") or Player:pressed("down") then
+  if Player:pressed("left") then
+    self._selectedBGM = self._selectedBGM - 1
+    if self._selectedBGM < 1 then
+      self._selectedBGM = #self._bgm
+    end
+  elseif Player:pressed("right") then
+    self._selectedBGM = self._selectedBGM + 1
+    if self._selectedBGM > #self._bgm then
+      self._selectedBGM = 1
+    end  
+  elseif Player:pressed("up") or Player:pressed("down") then
     self._selected = 1
   elseif Player:pressed("accept") then
+    local bgmName = basename(self._bgm[self._selectedBGM] or "")
+    if #bgmName > 0 then
+      Audio_Manager:playBGM(bgmName)
+    end
   elseif Player:pressed("cancel") then
     Scene_Manager:pop()
   end

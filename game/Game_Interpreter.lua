@@ -206,3 +206,19 @@ end
 function Game_Interpreter.prototype:stopMusic()
   self:stopBGM()
 end
+
+function Game_Interpreter.prototype:bgm(name)
+  self:playBGM(name)
+end
+
+function Game_Interpreter.prototype:music(name)
+  self:playBGM(name)
+end
+
+function Game_Interpreter.prototype:sfx(name)
+  self:playSFX(name)
+end
+
+function Game_Interpreter.prototype:soundEffect(name)
+  self:playSFX(name)
+end

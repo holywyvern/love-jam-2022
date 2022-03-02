@@ -6,6 +6,7 @@ function Scene_File.prototype:constructor()
   self._font = Assets.fonts.silver(Game_Camera.tileSize)
   self._cursor = Assets.graphics.system.save_cursor
   self._selected = Save_Manager._selectedIndex or 1
+  self._back = Assets.graphics.title.back
 end
 
 function Scene_File.prototype:update(dt)
@@ -30,6 +31,7 @@ function Scene_File.prototype:update(dt)
 end
 
 function Scene_File.prototype:drawUI()
+  love.graphics.draw(self._back)
   local w = Game_Camera.width - Game_Camera.tileSize * 4
   local h = Game_Camera.tileSize + Game_Camera.tileSize / 2
   local p = Game_Camera.tileSize / 4

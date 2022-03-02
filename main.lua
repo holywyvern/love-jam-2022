@@ -27,7 +27,14 @@ require "sprites"
 require "spritesets"
 
 local function loadAssets()
-  Assets = require("lib.cargo").init("assets")
+  Assets = require("lib.cargo").init({
+    dir = "assets",
+    processors = {
+      ['graphics/'] = function(image, filename)
+        image:setFilter('nearest', 'nearest')
+      end
+    }
+  })
   Audio = Assets.audio
 end
 
