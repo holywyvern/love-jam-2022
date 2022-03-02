@@ -1,8 +1,8 @@
-local E = Game_Event:extend("Home::TV_Event")
+local E = Game_Event:extend("Outside::Hole_Street_Event")
 
 function E.prototype:trigger()
   Game_Map.interpreter:message(
-    "I can't turn the TV on since\nthere's no power.",
+    "There\'s literally a hole on the \nstreet... That\'s insane!",
     { showFrame = true, position = "bottom" }
   )
 

@@ -9,7 +9,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 5,
-  nextobjectid = 23,
+  nextobjectid = 25,
   properties = {
     ["ambient.alpha"] = 0.5
   },
@@ -137,6 +137,12 @@ return {
         },
         {
           id = 18,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 19,
           properties = {
             ["solid"] = true
           }
@@ -276,6 +282,243 @@ return {
           }
         }
       }
+    },
+    {
+      name = "home roto",
+      firstgid = 49,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 8,
+      image = "./mapa_home_png_roto.png",
+      imagewidth = 128,
+      imageheight = 96,
+      objectalignment = "unspecified",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16,
+        height = 16
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 48,
+      tiles = {
+        {
+          id = 0,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 1,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 2,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 3,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 8,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 9,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 10,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 11,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 12,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 13,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 14,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 15,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 16,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 17,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 18,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 19,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 20,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 21,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 22,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 23,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 24,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 25,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 26,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 27,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 28,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 29,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 30,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 33,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 41,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 42,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 43,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 44,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 45,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 46,
+          properties = {
+            ["solid"] = true
+          }
+        },
+        {
+          id = 47,
+          properties = {
+            ["solid"] = true
+          }
+        }
+      }
     }
   },
   layers = {
@@ -339,12 +582,12 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 34, 34, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 34, 0, 0, 34, 34, 34, 34, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 34, 34, 34, 34, 34, 0, 0, 0, 0, 0, 0, 0, 0, 31, 13, 14, 31, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 34, 34, 34, 31, 0, 0, 18, 19, 0, 0, 34, 34, 34, 0, 0, 0, 34, 34, 0, 15, 16, 0, 0, 0, 0,
+        0, 0, 0, 0, 34, 82, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 34, 0, 0, 34, 34, 34, 82, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 82, 34, 34, 34, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 14, 31, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 34, 34, 34, 68, 0, 0, 18, 19, 0, 0, 34, 34, 34, 0, 0, 0, 82, 34, 90, 15, 16, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 20, 21, 22, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 0, 20, 23, 24, 20, 0, 0, 0, 0, 0, 20, 27, 28, 20, 0, 0, 0,
+        0, 0, 0, 79, 92, 93, 94, 79, 0, 0, 0, 0, 0, 1, 2, 0, 20, 21, 22, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 0, 79, 23, 24, 0, 0, 79, 0, 0, 0, 20, 27, 28, 20, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -377,10 +620,10 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 26, 29, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 0, 0, 0, 0, 0, 43, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 26, 29, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 17, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 27, 28, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 91, 0, 0, 0, 0, 0, 0, 0, 91, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -404,21 +647,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
-          name = "luz 1",
-          type = "light",
-          shape = "point",
-          x = 280.375,
-          y = 168,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["radius"] = 96
-          }
-        },
-        {
           id = 3,
           name = "",
           type = "event",
@@ -430,8 +658,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["direction"] = "right",
-            ["sprite"] = "player",
             ["template"] = "save"
           }
         },
@@ -613,6 +839,36 @@ return {
           visible = true,
           properties = {
             ["template"] = "home.drawer"
+          }
+        },
+        {
+          id = 23,
+          name = "",
+          type = "event",
+          shape = "point",
+          x = 424.667,
+          y = 133,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["template"] = "home.bed"
+          }
+        },
+        {
+          id = 24,
+          name = "",
+          type = "event",
+          shape = "point",
+          x = 440,
+          y = 133,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["template"] = "home.bed"
           }
         }
       }

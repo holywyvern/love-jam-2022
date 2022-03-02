@@ -7,10 +7,7 @@ end
 
 function E.prototype:step()
   if Game_Switches:get("home.candles") then
-    Game_Map.interpreter:message(
-      "",
-      { showFrame = true, position = "bottom" }
-    )
+    Game_Map.interpreter:changeMap("mapa_outside_1_lua", 10, 11, "down")
   else
     Game_Map.interpreter:message(
       "It's really dark outside. I\n" ..
