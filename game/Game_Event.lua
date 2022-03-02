@@ -43,6 +43,9 @@ function Game_Event:from(x, y, props)
       offset = Point(props['light.offset.x'] or 8, props['light.offset.y'] or 8)
     }
   end
+  if event.setupProps then
+    event:setupProps(props)
+  end
   return event
 end
 
