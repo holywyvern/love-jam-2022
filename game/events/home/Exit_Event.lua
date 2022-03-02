@@ -7,7 +7,17 @@ end
 
 function E.prototype:step()
   if Game_Switches:get("home.candles") then
-    Game_Map.interpreter:changeMap("mapa_outside_1_lua", 10, 11, "down")
+    if Game_Inventory:hand() ~= "candle" and not Game_Switches:get("home.exit") then
+      Game_Map.interpreter:message(
+        "I need to have the candles\n"..
+        "in my hand first.",
+        { showFrame = true }
+      )
+      Game_Map.interpreter:move(Game_Player, "up", true)
+    else
+      Game_Map.interpreter:switchOn("home.exit")
+      Game_Map.interpreter:changeMap("mapa_outside_1_lua", 10, 11, "down")
+    end
   else
     Game_Map.interpreter:message(
       "It's really dark outside. I\n" ..

@@ -18,11 +18,12 @@ function Game_Inventory:setup()
 end
 
 function Game_Inventory:save()
-  return self._items
+  return { items = self._items, selection = self.selection }
 end
 
 function Game_Inventory:load(data)
-  self._items = data or {}
+  self._items = data.items or {}
+  self.selection = data.selection
 end
 
 function Game_Inventory:amountOf(item)
