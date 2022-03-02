@@ -651,7 +651,7 @@ return {
           name = "",
           type = "event",
           shape = "point",
-          x = 248.364,
+          x = 248.364 + 16,
           y = 136.364,
           width = 0,
           height = 0,
