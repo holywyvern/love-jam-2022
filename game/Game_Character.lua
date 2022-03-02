@@ -9,7 +9,7 @@ function Game_Character.prototype:constructor()
   self._anim = 1
   self._animTime = 0.3
   self._animDelay = 0.3
-  self._speed = 2
+  self._speed = 3
   self._standAnim = false
   self._walkAnim = true
   self._position = Point()

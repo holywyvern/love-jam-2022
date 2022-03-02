@@ -12,7 +12,6 @@ function Sprite_Character.prototype:update(dt)
   if not self.character then
     return
   end
-  self.character:update(dt)
   self:updateSprite()
   self:updateRect()
   self:updatePosition()

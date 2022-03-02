@@ -1,5 +1,18 @@
 Game_Inventory = {}
 
+Game_Inventory.menuOpen = false
+Game_Inventory.selection = 1
+
+Game_Inventory.ITEM_LIST = { "nothing", "candle" }
+
+function Game_Inventory:hand()
+  local item = Game_Inventory.ITEM_LIST[self.selection]
+  if self:amountOf(item) < 1 then
+    return "nothing"
+  end
+  return item
+end
+
 function Game_Inventory:setup()
   self._items = {}
 end
@@ -13,6 +26,9 @@ function Game_Inventory:load(data)
 end
 
 function Game_Inventory:amountOf(item)
+  if item == "nothing" then
+    return 1
+  end
   return self._items[item] or 0
 end
 

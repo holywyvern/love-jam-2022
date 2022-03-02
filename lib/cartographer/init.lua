@@ -1,3 +1,5 @@
+local bit = require("bit")
+
 --- Tiled map loading and drawing library for LÖVE.
 local cartographer = {
 	_VERSION = 'Cartographer v2.2',
@@ -463,6 +465,17 @@ function Layer.spritelayer:update(dt)
 	self:_updateAnimations(dt)
 end
 
+local function getRealGID(tileId)
+	if not tileId then
+		return nil
+	end
+	local id = bit.band(tileId, 0xFFFFFFF)
+	if tileId ~= id then
+		print(tileId, id)
+	end
+	return id
+end
+
 --- Draws the layer.
 function Layer.spritelayer:draw()
 	love.graphics.push()
@@ -474,9 +487,25 @@ function Layer.spritelayer:draw()
 	-- draw the unbatched sprites
 	for i = 1, #self._sprites.exists do
 		if not self._sprites.spriteBatch[i] then
-			local animation = self._animations[self._sprites.tileGid[i]]
-			local image = self._map:_getTileImage(self._sprites.tileGid[i], animation and animation.currentFrame)
-			love.graphics.draw(image, self._sprites.x[i], self._sprites.y[i])
+			local gid = getRealGID(self._sprites.tileGid[i])
+			local flipX = bit.band(self._sprites.tileGid[i], 0x100000000)
+			local flipY = bit.band(self._sprites.tileGid[i], 0x80000000)
+			local anti = bit.band(self._sprites.tileGid[i], 0x20000000)
+			local sx = 1
+			local sy = 1
+			if flipX then
+				sx = -1
+			end
+			if flipY then
+				sy = -1
+			end
+			local animation = self._animations[gid]
+			local image = self._map:_getTileImage(gid, animation and animation.currentFrame)
+			love.graphics.push()
+				love.graphics.scale(sx, sy)
+				love.graphics.rotate(angle)
+				love.graphics.draw(image, self._sprites.x[i], self._sprites.y[i])
+			love.graphics.pop()
 		end
 	end
 	love.graphics.pop()
@@ -508,7 +537,7 @@ function Layer.tilelayer:_init(map)
 	Layer.spritelayer._init(self, map)
 	self:_decodeData()
 	for _, gid, _, _, pixelX, pixelY in self:getTiles() do
-		self:_setSprite(pixelX, pixelY, gid)
+		self:_setSprite(pixelX, pixelY,  getRealGID(gid))
 	end
 end
 
@@ -570,7 +599,7 @@ function Layer.tilelayer:getTileAtGridPosition(x, y)
 		gid = self.data[coordinatesToIndex(x, y, self.width)]
 	end
 	if gid == 0 then return false end
-	return gid
+	return  getRealGID(gid)
 end
 
 --- Sets the tile at the given grid position.
