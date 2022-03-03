@@ -23,7 +23,7 @@ end
 
 function Game_Inventory:load(data)
   self._items = data.items or {}
-  self.selection = data.selection
+  self.selection = 1
 end
 
 function Game_Inventory:amountOf(item)

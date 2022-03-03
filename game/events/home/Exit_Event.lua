@@ -11,7 +11,7 @@ function E.prototype:step()
       if Game_Inventory:amountOf("candle") < 1 then
         Game_Inventory:add("candle", 3)
       end
-      Game_Inventory.selected = 2
+      Game_Inventory.selection = 2
     end
     Game_Player:setCandleLight()
     Game_Map.interpreter:changeMap("mapa_outside_1_lua", 10, 11, "down")

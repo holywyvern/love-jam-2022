@@ -10,6 +10,7 @@ local MAX_CANDLE_TIME = 15
 Game_Player.MAX_CANDLE_TIME = MAX_CANDLE_TIME
 Game_Player._candleTime = MAX_CANDLE_TIME
 Game_Player._candleWobble = 0
+Game_Player.maxCandles = 3
 
 function Game_Player:heal()
   self.hp = self.maxHP
@@ -183,7 +184,8 @@ function Game_Player:save()
     y = self._position.y,
     direction = self._direction,
     candleTime = self._candleTime,
-    maxHP = self.maxHP
+    maxHP = self.maxHP,
+    maxCandles = self.maxCandles
   }
 end
 
@@ -193,6 +195,7 @@ function Game_Player:load(data)
   self._candleTime = candleTime or MAX_CANDLE_TIME
   self.maxHP = data.maxHP or 100
   self.hp = self.maxHP
+  self.maxCandles = data.maxCandles or 3
 end
 
 function Game_Player:move(direction)

@@ -22,8 +22,9 @@ function Save_Event.prototype:trigger()
     )
     Game_Map.interpreter:switchOn("game.save")
   end
-  if Game_Switches:get("home.candles") and Game_Inventory:amountOf("candle") < 3 then
-    Game_Inventory:add("candle", 3 - Game_Inventory:amountOf("candle"))
+  local max = Game_Player.maxCandles
+  if Game_Switches:get("home.candles") and Game_Inventory:amountOf("candle") < max then
+    Game_Inventory:add("candle", max - Game_Inventory:amountOf("candle"))
   end
   Game_Map.interpreter:heal()
   Game_Map.interpreter:save()
