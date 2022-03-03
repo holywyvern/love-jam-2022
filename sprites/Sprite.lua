@@ -33,6 +33,6 @@ function Sprite.prototype:draw()
   else
     love.graphics.setColor(1, 1, 1, 1)
   end
-  love.graphics.draw(self.image, self.quad, x, y)
-  -- love.graphics.draw(self.image, self.quad, self.angle, x, y, sx, sy, ox, oy, kx, ky)
+  -- love.graphics.draw(self.image, self.quad, x, y)
+  love.graphics.draw(self.image, self.quad, x, y, self.angle, sx, sy, ox, oy, kx, ky)
 end

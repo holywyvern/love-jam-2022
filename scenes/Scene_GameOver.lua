@@ -37,7 +37,7 @@ end
 
 function Scene_GameOver.prototype:drawUI()
   love.graphics.setColor(1, 1, 1, self._opacity)
-  love.graphics.draw(self._img)
+  -- love.graphics.draw(self._img)
   local w = self._font:getWidth("Game Over")
   local x = (Game_Camera.width - w) / 2
   love.graphics.setFont(self._font)

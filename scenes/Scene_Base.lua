@@ -67,8 +67,10 @@ function Scene_Base.prototype:resize(w, h)
 end
 
 function Scene_Base.prototype:keypressed(key)
-  if key == 'f5' then
+  if key == 'f10' then
     Scene_Manager:push(Scene_AudioTest())
+  elseif key == 'f11' then
+    Scene_Manager:push(Scene_CharacterViewer())
   elseif key == 'f12' then
     Scene_Manager:push(Scene_Credits())
   end
