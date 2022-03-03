@@ -153,4 +153,9 @@ function Array.prototype:sort(sorting)
   table.sort(self._data, sorting)
 end
 
+function Array.prototype:pick()
+  local i = math.rand(1, #(self._data))
+  return self._data[i]
+end
+
 Array.prototype.class = Array
