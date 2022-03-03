@@ -39,6 +39,10 @@ function Game_Monster.prototype:constructor(props)
   self._characterName = name
   self._attackSFX = props['sounds.attack'] or ATTACK[name] or "cut"
   self._deadSFX = props['sounds.dead'] or  DEATH[name] or "death_sound1"
+  self._movementType = props['move.type'] or 'stay'
+  self._movementTime = 0
+  self._movementSpeed = props['move.speed'] or 0.3
+  self._movementDirection = props['move.direction'] or 'clockwise'
 end
 
 function Game_Monster.prototype:_randomSprite()
@@ -65,6 +69,49 @@ function Game_Monster.prototype:update(dt)
     return
   end
   self:_updateChase()
+  if not self.follower then
+    self:_updateNaturalMovement(dt)
+  end
+end
+
+function Game_Monster.prototype:_updateNaturalMovement(dt)
+  local type = self._movementType
+  if self._movementTime > 0 then
+    self._movementTime = self._movementTime - dt
+    return
+  end
+  if type == 'random' then
+    local dir = Array("up", "left", "down", "right"):pick()
+    self:move(dir)
+  elseif type == 'rotate' then
+    local d = self._direction
+    self._movementTime = self._movementSpeed
+    if d == 2 then
+      if self._movementDirection == 'clockwise' then
+        self:face("right")
+      else
+        self:face("left")
+      end
+    elseif d == 4 then
+      if self._movementDirection == 'clockwise' then
+        self:face("up")
+      else
+        self:face("down")
+      end      
+    elseif d == 6 then
+      if self._movementDirection == 'clockwise' then
+        self:face("down")
+      else
+        self:face("up")
+      end      
+    elseif d == 8 then
+      if self._movementDirection == 'clockwise' then
+        self:face("left")
+      else
+        self:face("right")
+      end      
+    end
+  end
 end
 
 function Game_Monster.prototype:_updateAttack()
