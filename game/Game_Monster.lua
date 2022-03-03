@@ -1,5 +1,32 @@
 Game_Monster = Game_Event:extend("Game_Monster")
 
+local SPRITES = {
+  'bolitas',
+  'esqueletis',
+  'fantasmita',
+  'gordito',
+  'medusa',
+  'ojito',
+  'piedrita',
+  'slime',
+  'zombie'
+}
+
+local ATTACK = {
+  bolitas = 'low_thud',
+  esqueletis = 'hitsound_1',
+  fantasmita = 'hitsound_2',
+  gordito = 'power_hit',
+  medusa = 'electrocuted2',
+  ojito = 'swing2',
+  piedrita = 'low_thud',
+  slime = 'eat',
+  zombie = 'eat'
+}
+
+local DEATH = {
+}
+
 function Game_Monster.prototype:constructor(props)
   Game_Event.prototype.constructor(self)
   self.power = props.attack or 40
@@ -7,9 +34,16 @@ function Game_Monster.prototype:constructor(props)
   self._speed = props.speed or 3
   self._cooldown = 0
   self._dead = false
-  self._attackSFX = props['sounds.attack'] or "cut"
-  self._deadSFX = props['sounds.dead'] or "death_sound1"
   self._chase = props['chase'] or false
+  local name = props.sprite or self:_randomSprite()
+  self._characterName = name
+  self._attackSFX = props['sounds.attack'] or ATTACK[name] or "cut"
+  self._deadSFX = props['sounds.dead'] or  DEATH[name] or "death_sound1"
+end
+
+function Game_Monster.prototype:_randomSprite()
+  local i = math.rand(1, #SPRITES)
+  return SPRITES[i]
 end
 
 function Game_Monster.prototype:update(dt)

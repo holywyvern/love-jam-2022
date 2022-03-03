@@ -44,6 +44,10 @@ function Game_Map:_createEvents(layer)
   local newLayer = Map_Event_Layer()
   for _, object in ipairs(layer.objects) do
     local type = object.type
+    if type == "monster" then
+      type = "event"
+      object.properties.template = "monster"
+    end
     if type == "event" then
       local x = math.floor(object.x / 16)
       local y = math.floor(object.y / 16)
