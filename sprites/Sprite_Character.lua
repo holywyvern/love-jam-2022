@@ -78,5 +78,10 @@ end
 
 function Sprite_Character.prototype:updatePosition()
   self.position:copy(self.character._realPosition)
+  self.position.y = self.position.y + 16
+  if self.image then
+    local w, h = self.image:getDimensions()
+    self.position.x = self.position.x + w / 2 - 16
+  end
   self.position.y = self.position.y - self.character._jumpArc * 16
 end

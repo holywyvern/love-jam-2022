@@ -21,10 +21,10 @@ require "utils"
 -- Game Objects
 require "managers"
 require "game"
-require "scenes"
 -- Drawable objects
 require "sprites"
 require "spritesets"
+require "scenes"
 
 local function loadAssets()
   Assets = require("lib.cargo").init({
