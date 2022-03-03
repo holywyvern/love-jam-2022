@@ -44,6 +44,19 @@ function Game_Map:_createEvents(layer)
   local newLayer = Map_Event_Layer()
   for _, object in ipairs(layer.objects) do
     local type = object.type
+    if type == "monster" then
+      type = "event"
+      object.properties = object.properties or {}
+      object.properties.template = "monster"
+    elseif type == 'save' then
+      type = "event"
+      object.properties = object.properties or {}
+      object.properties.template = "save"
+    elseif type == "teleport" then
+      type = "event"
+      object.properties = object.properties or {}
+      object.properties.template = "teleport"
+    end
     if type == "event" then
       local x = math.floor(object.x / 16)
       local y = math.floor(object.y / 16)

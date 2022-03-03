@@ -18,11 +18,12 @@ function Game_Inventory:setup()
 end
 
 function Game_Inventory:save()
-  return self._items
+  return { items = self._items, selection = self.selection }
 end
 
 function Game_Inventory:load(data)
-  self._items = data or {}
+  self._items = data.items or {}
+  self.selection = 1
 end
 
 function Game_Inventory:amountOf(item)
@@ -36,8 +37,8 @@ function Game_Inventory:hasItem(item)
   return self:amountOf(item) > 0
 end
 
-function Game_Inventory:consume(item)
-  local amount = math.max(0, self:amountOf(item) - 1)
+function Game_Inventory:consume(item, quantity)
+  local amount = math.max(0, self:amountOf(item) - (quantity or 1))
   self._items[item] = amount
 end
 

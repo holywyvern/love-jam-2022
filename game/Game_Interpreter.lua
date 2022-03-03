@@ -83,6 +83,19 @@ function Game_Interpreter.prototype:beginCommand()
     self._processing = nil
   elseif code == 'stopBGM' then
     Audio_Manager:stopBGM()
+    self._processing = nil
+  elseif code == "save" then
+    Scene_Manager:push(Scene_Save())
+    self._processing = nil
+  elseif code == "heal" then
+    Game_Player:heal()
+    self._processing = nil
+  elseif code == "color" then
+    self._processing.event._color = self._processing.color
+    self._processing = nil
+  elseif code == "walkable" then
+    self._processing.event.walkable = self._processing.walkable
+    self._processing = nil
   end
 end
 
@@ -221,4 +234,36 @@ end
 
 function Game_Interpreter.prototype:soundEffect(name)
   self:playSFX(name)
+end
+
+function Game_Interpreter.prototype:heal()
+  self._commands:push({
+    code = "heal"
+  })
+end
+
+function Game_Interpreter.prototype:save()
+  self._commands:push({
+    code = "save"
+  })
+end
+
+function Game_Interpreter.prototype:setColor(event, r, g, b, a)
+  self._commands:push({
+    code = "color",
+    event = event,
+    color = {r, g, b, a}
+  })
+end
+
+function Game_Interpreter.prototype:setOpacity(event, a)
+  self:setColor(event, event._color[1], event._color[2], event._color[3], a)
+end
+
+function Game_Interpreter.prototype:setWalkable(event, walkable)
+  self._commands:push({
+    code = "walkable",
+    event = event,
+    walkable = walkable or false
+  })
 end

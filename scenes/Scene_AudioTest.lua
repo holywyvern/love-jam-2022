@@ -71,6 +71,7 @@ function Scene_AudioTest.prototype:_updateSFXSelection(dt)
     local sfxName = basename(self._sfx[self._selectedSFX] or "")
     if #sfxName > 0 then
       Audio_Manager:playSFX(sfxName)
+      print(sfxName)
     end
   elseif Player:pressed("cancel") then
     Scene_Manager:pop()

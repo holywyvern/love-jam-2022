@@ -27,6 +27,12 @@ function Sprite.prototype:draw()
   local sx, sy = self.scale:get()
   local ox, oy = self.offset:get()
   local kx, ky = self.shearing:get()
-  love.graphics.draw(self.image, self.quad, x, y)
-  -- love.graphics.draw(self.image, self.quad, self.angle, x, y, sx, sy, ox, oy, kx, ky)
+  if self.color then
+    local unpk = unpack or table.unpack
+    love.graphics.setColor(unpk(self.color))
+  else
+    love.graphics.setColor(1, 1, 1, 1)
+  end
+  -- love.graphics.draw(self.image, self.quad, x, y)
+  love.graphics.draw(self.image, self.quad, x, y, self.angle, sx, sy, ox, oy, kx, ky)
 end

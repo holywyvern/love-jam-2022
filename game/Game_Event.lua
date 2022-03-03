@@ -43,6 +43,9 @@ function Game_Event:from(x, y, props)
       offset = Point(props['light.offset.x'] or 8, props['light.offset.y'] or 8)
     }
   end
+  if event.setupProps then
+    event:setupProps(props)
+  end
   return event
 end
 
@@ -60,5 +63,9 @@ Game_Event.templates = {
   ["home.trash"] = require("game.events.home.Trash_Event"),
   ["home.guitar"] = require("game.events.home.Guitar_Event"),
   ["home.tv"] = require("game.events.home.TV_Event"),
-  teleport = require("game.events.Teleport_Event")
+  teleport = require("game.events.Teleport_Event"),
+  ["outside.fallen_tree"] = require("game.events.outside.Fallen_Tree_Event"),
+  ["outside.street_crack"] = require("game.events.outside.Street_Crack_Event"),
+  ["outside.neighbour_away"] = require("game.events.outside.Neighbour_Away_Event"),
+  ["outside.hole_street"] = require("game.events.outside.Hole_Street_Event")
 }
