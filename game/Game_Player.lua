@@ -5,7 +5,7 @@ Game_Player.hp = Game_Player.maxHP
 Game_Player._characterName = "player"
 Game_Camera.follower = Game_Player._realPosition
 
-local MAX_CANDLE_TIME = 60 
+local MAX_CANDLE_TIME = 15
 
 Game_Player.MAX_CANDLE_TIME = MAX_CANDLE_TIME
 Game_Player._candleTime = MAX_CANDLE_TIME
@@ -44,7 +44,9 @@ function Game_Player:updateCandle(dt)
   else
     self._candleWobble = self._candleWobble + dt * 5
     local r = 59 + self._candleTime * 5 / MAX_CANDLE_TIME
-    self.light.radius =  r + math.sin(self._candleWobble)
+    if self.light then
+      self.light.radius =  r + math.sin(self._candleWobble)
+    end
   end
 end
 
@@ -62,14 +64,7 @@ function Game_Player:updateMenu()
     Game_Inventory.menuOpen = false
     Game_Inventory.selection = Game_Inventory.currentSelection
     if Game_Inventory:hand() == 'candle' then
-      self.light = {
-        radius = 64,
-        red = 1,
-        green = 0.8,
-        blue = 0.7,
-        alpha = 0.3,
-        offset = Point(8, 8)
-      }
+      self:setCandleLight()
     else
       self.light = nil
     end
@@ -96,6 +91,17 @@ function Game_Player:updateMenu()
       Game_Inventory.currentSelection = Game_Inventory.currentSelection + 6
     end
   end
+end
+
+function Game_Player:setCandleLight()
+  self.light = {
+    radius = 64,
+    red = 1,
+    green = 0.8,
+    blue = 0.7,
+    alpha = 0.3,
+    offset = Point(8, 8)
+  }  
 end
 
 function Game_Player:updateInput()
