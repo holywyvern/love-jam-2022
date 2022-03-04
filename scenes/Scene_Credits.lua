@@ -2,6 +2,7 @@ Scene_Credits = Scene_Base:extend("Scene_Credits")
 
 function Scene_Credits.prototype:constructor()
   Scene_Base.prototype.constructor(self)
+  Audio_Manager:playBGM("reunion")
   self._credits = Array(
     { "Graphics" },
     "Kaidan",

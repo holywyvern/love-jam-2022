@@ -2,6 +2,7 @@ Scene_GameOver = Scene_Base:extend("Scene_GameOver")
 
 function Scene_GameOver.prototype:constructor()
   Scene_Base.prototype.constructor(self)
+  Audio_Manager:playBGM("game_over")
   self._img = Assets.graphics.title.back
   self._timeout = 5
   self._opacity = 0
