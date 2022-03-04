@@ -3,6 +3,10 @@ Game_Map = {}
 function Game_Map:setup(mapName)
   self.interpreter = Game_Interpreter()
   self._data = Cartographer.load("assets/data/maps/" .. mapName .. ".lua")
+  local bgm = self._data.properties.bgm
+  if bgm and bgm ~= '' then
+    Audio_Manager:playBGM(bgm)
+  end
   local w, h = Game_Camera.width / 2, Game_Camera.height / 2
   Game_Camera.limits = Rect(w, h, self._data.width * 16 - w, self._data.height * 16 - h)
   self:_setupPolygons()

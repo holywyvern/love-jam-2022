@@ -12,7 +12,9 @@ function Audio_Manager:playBGM(name)
   end
   self._bgmName = name
   self._bgm = Assets.audio.bgm[name]
-  self._bgm:play()
+  if self._bgm then
+    self._bgm:play()
+  end
 end
 
 function Audio_Manager:stopBGM()

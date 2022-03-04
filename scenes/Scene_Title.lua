@@ -4,7 +4,7 @@ local STARTING_MAP = "mapa_home_lua"
 local STARTING_POSITION = { 11, 8 }
 
 function Scene_Title.prototype:enter()
-  self._setupNewGame()
+  Audio_Manager:playBGM("reunion")
   self._selected = 1
   self._commands = Array()
   if Save_Manager:hasSaves() then

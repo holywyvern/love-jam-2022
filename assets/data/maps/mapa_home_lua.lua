@@ -11,7 +11,8 @@ return {
   nextlayerid = 5,
   nextobjectid = 25,
   properties = {
-    ["ambient.alpha"] = 0.5
+    ["ambient.alpha"] = 0.5,
+    bgm = "calm_city"
   },
   tilesets = {
     {
